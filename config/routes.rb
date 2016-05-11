@@ -1,4 +1,4 @@
 Rails.application.routes.draw do
-  root to: 'visitors#index'
+  root 'spotchecks#home'
   devise_for :users
 end
