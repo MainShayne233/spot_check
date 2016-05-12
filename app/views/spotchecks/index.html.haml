@@ -1,0 +1,4 @@
+= current_user.spotchecks.each do |spotcheck|
+  %h1= spotcheck.created_at
+  = spotcheck.spots.each do |spot|
+    %h4= spot.activity.title
