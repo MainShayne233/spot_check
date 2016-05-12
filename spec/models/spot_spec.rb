@@ -13,4 +13,14 @@ RSpec.describe Spot, type: :model do
     expect(spot.save).to be
   end
 
+  describe 'title' do
+
+    it "should return the title of the spot's activity" do
+      activity = FactoryGirl.create(:activity)
+      spot = FactoryGirl.create(:spot, activity: activity)
+      expect(spot.title).to eq activity.title
+    end
+
+  end
+
 end

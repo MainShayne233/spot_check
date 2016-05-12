@@ -8,4 +8,8 @@ class Spot < ActiveRecord::Base
   validates :spotcheck, presence: true
   validates :user, presence: true
 
+  def title
+    self.activity.title
+  end
+
 end
