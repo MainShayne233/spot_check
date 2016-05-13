@@ -2,6 +2,6 @@ FactoryGirl.define do
   factory :spot do
     activity
     spotcheck
-    user
+    association :assignee, factory: :user
   end
 end

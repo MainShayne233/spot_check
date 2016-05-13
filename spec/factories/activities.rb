@@ -1,5 +1,6 @@
 FactoryGirl.define do
   factory :activity do
+    association :creator, factory: :user
     title { unique_title }
   end
 end

@@ -11,12 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160512153048) do
+ActiveRecord::Schema.define(version: 20160512205940) do
 
   create_table "activities", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "title"
+    t.integer  "creator_id"
   end
 
   create_table "spotchecks", force: :cascade do |t|
@@ -31,7 +32,7 @@ ActiveRecord::Schema.define(version: 20160512153048) do
     t.datetime "updated_at",   null: false
     t.integer  "spotcheck_id"
     t.integer  "activity_id"
-    t.integer  "user_id"
+    t.integer  "assignee_id"
   end
 
   create_table "users", force: :cascade do |t|
