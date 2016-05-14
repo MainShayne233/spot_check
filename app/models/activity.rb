@@ -1,6 +1,6 @@
 class Activity < ActiveRecord::Base
 
-  validates :title, presence: true, uniqueness: true
+  validates :title, presence: true, uniqueness: {scope: :creator}
   validates :creator, presence: true
 
   has_many :spots

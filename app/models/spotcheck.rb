@@ -4,7 +4,11 @@ class Spotcheck < ActiveRecord::Base
   has_many :spots
 
   validates :checker, presence: true
-  validates :title, presence: true, uniqueness: true
+  validates :title, presence: true, uniqueness: {scope: :checker}
+
+  def assignees
+    self.spots.map {|spot| spot.assignee}
+  end
 
 
 end

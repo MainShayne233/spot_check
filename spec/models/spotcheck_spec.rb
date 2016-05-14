@@ -18,6 +18,18 @@ RSpec.describe Spotcheck, type: :model do
     end
   end
 
+  describe 'assignees' do
+    it 'should return the assignees of all of its spots' do
+      spotcheck = FactoryGirl.create(:spotcheck)
+      assignees = 5.times.map {FactoryGirl.create(:user)}
+      assignees.each {|assignee| FactoryGirl.create(:spot,
+                                                    spotcheck: spotcheck,
+                                                    assignee: assignee)}
+      expect(spotcheck.assignees.sort).to eq assignees.sort
+    end
+  end
+
+
 
 
 

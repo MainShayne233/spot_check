@@ -47,7 +47,7 @@ RSpec.describe Spot, type: :model do
 
   describe 'assigner' do
     it "should return the name of the spot's assigner" do
-      assigner = FactoryGirl.create(:user, name: 'simon')
+      assigner = FactoryGirl.create(:user, first_name: 'simon', last_name: 'nomis')
       spotcheck = FactoryGirl.create(:spotcheck, checker: assigner)
       spot = FactoryGirl.create(:spot, spotcheck: spotcheck)
       expect(spot.assigner).to eq assigner.name
