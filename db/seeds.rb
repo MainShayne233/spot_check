@@ -5,11 +5,14 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-user = User.create email: 'foo@bar.com', password: 'password'
+user = User.create email: 'foo@bar.com', password: 'password', first_name: 'simon', last_name: 'monis'
 puts 'CREATED ADMIN USER: ' << user.email
 
 # Creates 4 sample assignees
-assignees = %w(john josh jake joseph).map {|name| User.create email: "#{name}@seed.com", password: 'password'}.to_a
+assignees = %w(john josh jake joseph).map {|name| User.create(email: "#{name}@seed.com",
+                                                              password: 'password',
+                                                              first_name: "#{name}",
+                                                              last_name: "#{name.reverse}")}.to_a
 
 # Creates a spotcheck
 spotcheck = user.spotchecks.create(title: "Support SW")
