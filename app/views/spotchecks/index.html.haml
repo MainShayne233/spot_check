@@ -1,4 +1,3 @@
+%h1 Spotchecks
 - current_user.spotchecks.each do |spotcheck|
-  %h1= spotcheck.title
-  -spotcheck.spots.each do |spot|
-    %h4= "#{spot.title} - #{spot.assignee.name}"
+  %h4= link_to "#{spotcheck.title}", spotcheck

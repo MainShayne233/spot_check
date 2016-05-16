@@ -1,0 +1,5 @@
+%h1= @spotcheck.title
+- @spotcheck.spots.each do |spot|
+  .container.table-bordered
+    %h4.inline.table-bordered= spot.assignee.name
+    %h4.inline= spot.title

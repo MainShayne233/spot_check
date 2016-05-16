@@ -9,6 +9,6 @@
     = csrf_meta_tags
   %body
     %header
-    %main{:role => "main"}
-      = render 'layouts/messages'
-      = yield
+      = render 'layouts/header'
+    = render 'layouts/messages'
+    = yield

@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 describe User do
 
   describe 'Validations' do
@@ -26,25 +28,40 @@ describe User do
     end
 
     it 'should have a unique first and last name pair' do
-      FactoryGirl.create(:user, first_name: 'simon', last_name: 'monis')
-      user = FactoryGirl.build(:user, first_name: 'simon', last_name: 'monis')
+      FactoryGirl.create(:user, first_name: 'Simon', last_name: 'Monis')
+      user = FactoryGirl.build(:user, first_name: 'Simon', last_name: 'Monis')
       expect(user.save).to_not be
       user.first_name= 'Ian'
       expect(user.save).to be
-      user.first_name= 'simon'
-      user.last_name= 'johnson'
+      user.first_name= 'Simon'
+      user.last_name= 'Johnson'
       expect(user.save).to be
     end
 
   end
 
   describe 'name' do
-
     it 'should return the formatted name of the user' do
-      user = FactoryGirl.create(:user, first_name: 'simon', last_name: 'monis')
-      expect(user.name).to eq 'monis, simon'
+      user = FactoryGirl.create(:user, first_name: 'Simon', last_name: 'Monis')
+      expect(user.name).to eq 'Simon Monis'
     end
+  end
 
+  describe 'spots_from' do
+    it 'should return all of the spots belonging to a specific spotcheck of the user' do
+      user = FactoryGirl.create(:user)
+      spotcheck = FactoryGirl.create(:spotcheck)
+      spots = (0..5).map{FactoryGirl.create(:spot, assignee: user, spotcheck: spotcheck)}
+      expect(user.spots_from(spotcheck).sort).to eq spots.sort
+    end
+  end
+
+  describe 'capitalize_names' do
+    it 'should capitalize the names of a user before saving it to the databse' do
+      user = FactoryGirl.create(:user, first_name: 'simon', last_name: 'nomis')
+      expect(user.first_name).to eq 'Simon'
+      expect(user.last_name).to eq 'Nomis'
+    end
   end
 
 end
