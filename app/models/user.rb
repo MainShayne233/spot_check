@@ -8,9 +8,9 @@ class User < ActiveRecord::Base
   validates :last_name, presence: true, uniqueness: {scope: :first_name}
 
 
-  has_many :spots, foreign_key:  :assignee_id
-  has_many :spotchecks, foreign_key: :checker_id
-  has_many :activities, foreign_key: :creator_id
+  has_many :spots, foreign_key:  :assignee_id, dependent: :destroy
+  has_many :spotchecks, foreign_key: :checker_id, dependent: :destroy
+  has_many :activities, foreign_key: :creator_id, dependent: :destroy
 
   def set_default_role
     self.role ||= :user

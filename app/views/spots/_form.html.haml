@@ -1,0 +1,18 @@
+#new_spot_modal.modal.fade{role: 'dialog'}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{'data-dismiss' => 'modal', type: 'button'} &times;
+        %h4.modal-title New Spot
+      .modal-body
+
+        = simple_form_for @spot do |f|
+          = f.label :assignee
+          = f.select :assignee_id, user_select_list
+          = f.label :activity
+          = f.select :activity_id, activity_select_list(@spotcheck.checker.id)
+          = f.input :spotcheck_id, as: :hidden, input_html: {value: @spotcheck.id}
+
+          .modal-footer
+            =f.submit class: 'btn btn-primary'
+            %button.btn.btn-default{'data-dismiss' => 'modal', type: 'button'} Close

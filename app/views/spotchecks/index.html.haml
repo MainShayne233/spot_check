@@ -1,3 +1,9 @@
-%h1 Spotchecks
-- current_user.spotchecks.each do |spotcheck|
-  %h4= link_to "#{spotcheck.title}", spotcheck
+.container
+  %h1.inline Spotchecks
+  = link_to 'Create New Spotcheck', '#', id: 'create_new_spotcheck'
+
+.container
+  - current_user.spotchecks.each do |spotcheck|
+    %h4= link_to "#{spotcheck.title}", spotcheck
+
+= render 'form'

@@ -1,5 +1,15 @@
-%h1= @spotcheck.title
-- @spotcheck.spots.each do |spot|
-  .container.table-bordered
-    %h4.inline.table-bordered= spot.assignee.name
-    %h4.inline= spot.title
+.container
+  = link_to 'Delete Spotcheck', spotcheck_path, method: :delete, class: 'btn btn-danger pull-right', data: spotcheck_delete_confirm
+  %h1.inline= @spotcheck.title
+  = link_to 'Create New Spot', '#', class: 'inline', id: 'create_new_spot'
+
+.container
+  - @spotcheck.spots.each do |spot|
+    .container.table-bordered
+      %h4.inline.table-bordered= spot.assignee.name
+      %h4.inline= spot.title
+  - if @spotcheck.spots.blank?
+    %h4 This spotcheck currently has no spots
+
+
+= render 'spots/form'

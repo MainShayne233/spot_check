@@ -2,39 +2,35 @@ require 'rails_helper'
 
 RSpec.describe Spot, type: :model do
 
+  
+
   describe 'validations do' do
-    it 'should have an assignee' do
-      spot = Spot.new(
-          activity_id: FactoryGirl.create(:activity).id,
-          spotcheck_id: FactoryGirl.create(:spotcheck).id
-      )
-      expect(spot.save).to_not be
-      user = FactoryGirl.create(:user)
-      spot.assignee= user
-      expect(spot.save).to be
+
+    it 'should have its necessary relationships' do
+      ['assignee', 'activity', 'spotcheck'].each do |relation|
+        spot = FactoryGirl.build(:spot, relation => nil)
+        expect(spot.save).to_not be
+        spot.send("#{relation}=", FactoryGirl.create(relation))
+        expect(spot.save).to be
+      end
     end
 
-    it 'should have an activity' do
-      spot = Spot.new(
-          assignee_id: FactoryGirl.create(:user).id,
-          spotcheck_id: FactoryGirl.create(:spotcheck).id
-      )
-      expect(spot.save).to_not be
-      activity = FactoryGirl.create(:activity)
-      spot.activity= activity
-      expect(spot.save).to be
+  end
+
+
+  describe 'dependent' do
+
+    it 'should be deleted if one of its dependencies is deleted' do
+      [:spotcheck, :activity, :assignee].each do |relation|
+        dependency = FactoryGirl.create(relation)
+        spot = FactoryGirl.create(:spot, relation => dependency)
+        another_spot = FactoryGirl.create(:spot, relation => dependency)
+        dependency.destroy
+        expect(Spot.exists?(spot.id)).to_not be
+        expect(Spot.exists?(another_spot.id)).to_not be
+      end
     end
 
-    it 'should have a spotcheck' do
-      spot = Spot.new(
-          activity_id: FactoryGirl.create(:activity).id,
-          assignee_id: FactoryGirl.create(:user).id
-      )
-      expect(spot.save).to_not be
-      spotcheck = FactoryGirl.create(:spotcheck)
-      spot.spotcheck= spotcheck
-      expect(spot.save).to be
-    end
   end
 
   describe 'title' do
@@ -53,7 +49,5 @@ RSpec.describe Spot, type: :model do
       expect(spot.assigner).to eq assigner.name
     end
   end
-
-
 
 end

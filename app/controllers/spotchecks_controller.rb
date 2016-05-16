@@ -1,11 +1,7 @@
 class SpotchecksController < ApplicationController
 
   def index
-
-  end
-
-  def new
-    @spotcheck = current_user.spotchecks.new()
+    @spotcheck = current_user.spotchecks.new
   end
 
   def create
@@ -17,6 +13,14 @@ class SpotchecksController < ApplicationController
 
   def show
     @spotcheck = Spotcheck.find(params[:id])
+    @spot = Spot.new()
+  end
+
+  def destroy
+    @spotcheck = Spotcheck.find(params[:id])
+    if @spotcheck.destroy
+      redirect_to root_path
+    end
   end
 
 
@@ -25,5 +29,6 @@ class SpotchecksController < ApplicationController
   def spotcheck_params
     params.require(:spotcheck).permit(:id, :title)
   end
+
 
 end
