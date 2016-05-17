@@ -8,10 +8,6 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
-group :development, :test do
-  gem 'byebug'
-  gem 'faker'
-end
 group :development do
   gem 'web-console', '~> 2.0'
   gem 'spring'
@@ -35,6 +31,7 @@ end
 group :development, :test do
   gem 'factory_girl_rails'
   gem 'faker'
+  gem 'byebug'
   gem 'rspec-rails'
   gem 'rubocop'
 end

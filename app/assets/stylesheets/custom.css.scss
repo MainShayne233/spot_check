@@ -1,5 +1,18 @@
+.activity-btns{
+  margin-top: -4%;
+}
+
+.activity-form{
+  margin-right: -5%;
+}
+
+
 .inline{
   display: inline-block;
+}
+
+.small-form{
+  width: 30%;
 }
 
 
@@ -16,3 +29,6 @@
   text-decoration: none !important;
 }
 
+#new-activity-input{
+  margin-left: 12px;
+}

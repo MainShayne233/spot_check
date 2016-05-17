@@ -8,8 +8,6 @@ ready = ->
 
   # Sets listener for new spotcheck modal link
 
-  #$("#spotcheck_title")
-
   $('#create_new_spotcheck').click ->
     $('#new_spotcheck_modal').modal('toggle')
     modal_focus $("input[name='spotcheck[title]']")

@@ -5,7 +5,14 @@ module SelectListHelper
   end
 
   def activity_select_list(creator_id)
-    Activity.where(creator_id: creator_id).map{|activity| [activity.title, activity.id]}
+    options = Activity.where(creator_id: creator_id).map{|activity| [activity.title, activity.id]}
+    options.unshift ''
+    options.unshift ['Create New', 0]
+  end
+
+  def first_activity(creator_id)
+    activity = Activity.where(creator_id: creator_id).first
+    [activity.title, activity.id]
   end
 
 end

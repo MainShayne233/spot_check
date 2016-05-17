@@ -4,38 +4,24 @@ describe User do
 
   describe 'Validations' do
 
-    it 'should have a unique email' do
-      user = FactoryGirl.build(:user, email: nil)
-      expect(user.save).to_not be
-      user.email= 'foo@bar.com'
-      expect(user.save).to be
-      another_user = FactoryGirl.build(:user, email: user.email)
-      expect(another_user.save).to_not be
+    it 'should have its necessary attributes' do
+      ['first_name', 'last_name'].each do |attr|
+        user = FactoryGirl.build(:user, attr => nil)
+        expect(user.save).to_not be
+        user.send("#{attr}=", send("fake_#{attr}"))
+        expect(user.save).to be
+      end
     end
 
-    it 'should have a first name' do
-      user = FactoryGirl.build(:user, last_name: 'nomis', first_name: nil)
-      expect(user.save).to_not be
-      user.first_name= 'simon'
-      expect(user.save).to be
-    end
-
-    it 'should have a last name' do
-      user = FactoryGirl.build(:user, last_name: nil)
-      expect(user.save).to_not be
-      user.last_name= 'nomis'
-      expect(user.save).to be
-    end
-
-    it 'should have a unique first and last name pair' do
-      FactoryGirl.create(:user, first_name: 'Simon', last_name: 'Monis')
-      user = FactoryGirl.build(:user, first_name: 'Simon', last_name: 'Monis')
-      expect(user.save).to_not be
-      user.first_name= 'Ian'
-      expect(user.save).to be
-      user.first_name= 'Simon'
-      user.last_name= 'Johnson'
-      expect(user.save).to be
+    it 'should have unique attributes' do
+      ['email', 'name'].each do |attr|
+        generated_attr = send("fake_#{attr}")
+        FactoryGirl.create(:user, attr => generated_attr)
+        user = FactoryGirl.build(:user, attr => generated_attr)
+        expect(user.save).to_not be
+        user.send("#{attr}=", send("fake_#{attr}"))
+        expect(user.save).to be
+      end
     end
 
   end
@@ -44,6 +30,16 @@ describe User do
     it 'should return the formatted name of the user' do
       user = FactoryGirl.create(:user, first_name: 'Simon', last_name: 'Monis')
       expect(user.name).to eq 'Simon Monis'
+    end
+  end
+
+  describe 'name=' do
+    it 'should set the first and last name of the user' do
+      user = FactoryGirl.create(:user)
+      user.name= 'Simon Nomis'
+      expect(user.first_name).to eq 'Simon'
+      expect(user.last_name).to eq 'Nomis'
+      expect {user.name='Simon'}.to raise_error('Did not supply a full name, or supplied too many names.')
     end
   end
 

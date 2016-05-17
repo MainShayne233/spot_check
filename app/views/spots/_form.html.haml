@@ -7,12 +7,21 @@
       .modal-body
 
         = simple_form_for @spot do |f|
-          = f.label :assignee
-          = f.select :assignee_id, user_select_list
-          = f.label :activity
-          = f.select :activity_id, activity_select_list(@spotcheck.checker.id)
-          = f.input :spotcheck_id, as: :hidden, input_html: {value: @spotcheck.id}
-
+          .container
+            = f.label :assignee
+            = f.select :assignee_id, user_select_list
+            %br
+            %br
+            #pre-existing-activities
+              = f.label :activity
+              = f.select :activity_id, activity_select_list(@spotcheck.checker.id), selected: first_activity(@spotcheck.checker.id)
+            #new-activity.form-horizontal
+              = f.label :activity
+              %input.inline.form-control.small-form#new-activity-input
+              = link_to 'Save', '#', class: 'btn btn-primary btn-sm', id: 'save-activity'
+              = link_to 'Cancel', '#', class: 'btn btn-default btn-sm', id: 'cancel-activity'
+            = f.input :spotcheck_id, as: :hidden, input_html: {value: @spotcheck.id}
+          %br
           .modal-footer
             =f.submit class: 'btn btn-primary'
             %button.btn.btn-default{'data-dismiss' => 'modal', type: 'button'} Close

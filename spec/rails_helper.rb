@@ -59,3 +59,19 @@ end
 def fake_title
   "#{Faker::Hacker.verb} the #{Faker::Hacker.adjective} #{Faker::Hacker.noun}"
 end
+
+def fake_first_name
+  Faker::Name.first_name
+end
+
+def fake_last_name
+  Faker::Name.last_name
+end
+
+def fake_name
+  "#{fake_first_name} #{fake_last_name}"
+end
+
+def fake_email
+  Faker::Internet.email
+end

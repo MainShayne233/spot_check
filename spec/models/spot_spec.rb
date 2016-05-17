@@ -2,8 +2,6 @@ require 'rails_helper'
 
 RSpec.describe Spot, type: :model do
 
-  
-
   describe 'validations do' do
 
     it 'should have its necessary relationships' do
@@ -18,7 +16,7 @@ RSpec.describe Spot, type: :model do
   end
 
 
-  describe 'dependent' do
+  describe 'dependencies' do
 
     it 'should be deleted if one of its dependencies is deleted' do
       [:spotcheck, :activity, :assignee].each do |relation|
@@ -33,6 +31,7 @@ RSpec.describe Spot, type: :model do
 
   end
 
+
   describe 'title' do
     it "should return the title of the spot's activity" do
       activity = FactoryGirl.create(:activity)
@@ -40,6 +39,8 @@ RSpec.describe Spot, type: :model do
       expect(spot.title).to eq activity.title
     end
   end
+
+
 
   describe 'assigner' do
     it "should return the name of the spot's assigner" do

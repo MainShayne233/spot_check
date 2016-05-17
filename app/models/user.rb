@@ -25,6 +25,11 @@ class User < ActiveRecord::Base
     "#{self.first_name} #{self.last_name}"
   end
 
+  def name=(name)
+    raise 'Did not supply a full name, or supplied too many names.' if name.split(' ').count != 2
+    self.update(first_name: name.split(' ').first, last_name: name.split(' ').last)
+  end
+
   def spots_from(spotcheck)
     self.spots.where(spotcheck_id: spotcheck.id)
   end

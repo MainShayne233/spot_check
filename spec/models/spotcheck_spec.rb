@@ -3,11 +3,24 @@ require 'rails_helper'
 RSpec.describe Spotcheck, type: :model do
 
   describe 'validations' do
-    it 'should have a checker' do
-      spotcheck = Spotcheck.new(title: 'Support SW')
-      expect(spotcheck.save).to_not be
-      spotcheck.checker= FactoryGirl.create(:user)
-      expect(spotcheck.save).to be
+
+
+    it 'should have its necessary relationships' do
+      ['checker'].each do |relation|
+        spotcheck = FactoryGirl.build(:spotcheck, relation => nil)
+        expect(spotcheck.save).to_not be
+        spotcheck.send("#{relation}=", FactoryGirl.create(relation))
+        expect(spotcheck.save).to be
+      end
+    end
+
+    it 'should have its necessary attributes' do
+      ['title'].each do |attr|
+        spotcheck = FactoryGirl.build(:activity, attr => nil)
+        expect(spotcheck.save).to_not be
+        spotcheck.send("#{attr}=", send("fake_#{attr}"))
+        expect(spotcheck.save).to be
+      end
     end
 
     it 'should have a title' do
@@ -17,6 +30,7 @@ RSpec.describe Spotcheck, type: :model do
       expect(spotcheck.save).to be
     end
   end
+
 
   describe 'assignees' do
     it 'should return the assignees of all of its spots' do
@@ -28,9 +42,5 @@ RSpec.describe Spotcheck, type: :model do
       expect(spotcheck.assignees.sort).to eq assignees.sort
     end
   end
-
-
-
-
 
 end

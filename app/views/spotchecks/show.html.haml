@@ -1,7 +1,7 @@
 .container
   = link_to 'Delete Spotcheck', spotcheck_path, method: :delete, class: 'btn btn-danger pull-right', data: spotcheck_delete_confirm
   %h1.inline= @spotcheck.title
-  = link_to 'Create New Spot', '#', class: 'inline', id: 'create_new_spot'
+  = link_to 'Create New Spot', '#', class: 'btn btn-default pull-right', id: 'create_new_spot'
 
 .container
   - @spotcheck.spots.each do |spot|
