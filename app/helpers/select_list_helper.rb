@@ -1,12 +1,13 @@
 module SelectListHelper
 
   def user_select_list
-    User.all.order(:last_name).map{|user| [user.formal_name, user.id]}
+    options = User.all.order(:last_name).map{|user| [user.formal_name, user.id]}
+    options.unshift ['', -1]
   end
 
   def activity_select_list(creator_id)
-    options = Activity.where(creator_id: creator_id).map{|activity| [activity.title, activity.id]}
-    options.unshift ''
+    options = Activity.where(creator_id: creator_id).order(:title).map{|activity| [activity.title, activity.id]}
+    options.unshift ['', -1]
     options.unshift ['Create New', 0]
   end
 

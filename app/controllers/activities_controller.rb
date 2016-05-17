@@ -4,7 +4,8 @@ class ActivitiesController < ApplicationController
     @activity = current_user.activities.new(activity_params)
     if @activity.save
       respond_to do |format|
-        format.json {render json: {id: @activity.id, title: @activity.title, count: current_user.activities.count}}
+        format.json {render json: {index: @activity.alphabetical_index(current_user),
+                                   activities: activity_select_list(current_user.id)}}
       end
     end
   end

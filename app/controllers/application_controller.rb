@@ -4,4 +4,12 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :authenticate_user!
+
+
+  def activity_select_list(creator_id)
+    options = Activity.where(creator_id: creator_id).order(:title).map{|activity| [activity.title, activity.id]}
+    options.unshift ['', -1]
+    options.unshift ['Create New', 0]
+  end
+
 end
