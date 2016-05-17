@@ -30,7 +30,6 @@ ready = ->
   # Alters enter key function from submitting spot form to submitting activity form
 
   $('#new-activity-input').on 'keypress', (e) ->
-    console.log(':)')
     if e.keyCode == 13
       save_new_activity()
 
