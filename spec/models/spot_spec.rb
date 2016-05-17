@@ -13,6 +13,17 @@ RSpec.describe Spot, type: :model do
       end
     end
 
+    it 'should have a unique activity within the scope of its assignee and spotcheck' do
+      assignee = FactoryGirl.create(:user)
+      spotcheck = FactoryGirl.create(:spotcheck)
+      activity = FactoryGirl.create(:activity)
+      FactoryGirl.create(:spot, assignee: assignee, spotcheck: spotcheck, activity: activity)
+      spot = FactoryGirl.build(:spot, assignee: assignee, spotcheck: spotcheck, activity: activity)
+      expect(spot.save).to_not be
+      spot.activity= FactoryGirl.create(:activity)
+      expect(spot.save).to be
+    end
+
   end
 
 
@@ -50,5 +61,6 @@ RSpec.describe Spot, type: :model do
       expect(spot.assigner).to eq assigner.name
     end
   end
+
 
 end

@@ -1,7 +1,7 @@
 module SelectListHelper
 
   def user_select_list
-    User.all.map{|user| [user.name, user.id]}
+    User.all.order(:last_name).map{|user| [user.formal_name, user.id]}
   end
 
   def activity_select_list(creator_id)

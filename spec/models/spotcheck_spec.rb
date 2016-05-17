@@ -43,4 +43,6 @@ RSpec.describe Spotcheck, type: :model do
     end
   end
 
+
+
 end

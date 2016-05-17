@@ -7,7 +7,8 @@ class Spotcheck < ActiveRecord::Base
   validates :title, presence: true, uniqueness: {scope: :checker}
 
   def assignees
-    self.spots.map {|spot| spot.assignee}
+    assignee_ids = self.spots.map {|spot| spot.assignee_id}
+    User.where(id: assignee_ids)
   end
 
 

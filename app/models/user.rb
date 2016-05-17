@@ -30,6 +30,10 @@ class User < ActiveRecord::Base
     self.update(first_name: name.split(' ').first, last_name: name.split(' ').last)
   end
 
+  def formal_name
+    "#{self.last_name}, #{self.first_name}"
+  end
+
   def spots_from(spotcheck)
     self.spots.where(spotcheck_id: spotcheck.id)
   end

@@ -4,7 +4,7 @@ class Spot < ActiveRecord::Base
   belongs_to :spotcheck
   belongs_to :assignee, class_name: 'User'
 
-  validates :activity, presence: true
+  validates :activity, presence: true, uniqueness: {scope: [:assignee, :spotcheck]}
   validates :spotcheck, presence: true
   validates :assignee, presence: true
   def title

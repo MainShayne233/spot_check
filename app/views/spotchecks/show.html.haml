@@ -4,9 +4,9 @@
   = link_to 'Create New Spot', '#', class: 'btn btn-default pull-right', id: 'create_new_spot'
 
 .container
-  - @spotcheck.spots.each do |spot|
+  - spots_by_users(@spotcheck).each do |spot|
     .container.table-bordered
-      %h4.inline.table-bordered= spot.assignee.name
+      %h4.inline.table-bordered= spot.assignee.formal_name
       %h4.inline= spot.title
   - if @spotcheck.spots.blank?
     %h4 This spotcheck currently has no spots

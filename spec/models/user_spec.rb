@@ -43,6 +43,13 @@ describe User do
     end
   end
 
+  describe 'formal_name' do
+    it 'should return the formatted name of the user' do
+      user = FactoryGirl.create(:user, first_name: 'Simon', last_name: 'Monis')
+      expect(user.formal_name).to eq 'Monis, Simon'
+    end
+  end
+
   describe 'spots_from' do
     it 'should return all of the spots belonging to a specific spotcheck of the user' do
       user = FactoryGirl.create(:user)
