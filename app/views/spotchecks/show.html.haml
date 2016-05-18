@@ -1,7 +1,10 @@
 .container
-  = link_to 'Delete Spotcheck', spotcheck_path, method: :delete, class: 'btn btn-danger pull-right', data: spotcheck_delete_confirm
+  - if @spotcheck.checker.id == current_user.id
+    = link_to 'Delete Spotcheck', spotcheck_path, method: :delete, class: 'btn btn-danger pull-right', data: spotcheck_delete_confirm
   %h1.inline= @spotcheck.title
-  = link_to 'Create New Spot', '#', class: 'btn btn-default pull-right', id: 'create_new_spot'
+
+  - if @spotcheck.checker.id == current_user.id
+    = link_to 'Create New Spot', '#', class: 'btn btn-default pull-right', id: 'create_new_spot'
 
 .container
   - @spotcheck.assignees.each do |assignee|
@@ -17,9 +20,15 @@
         %tr
           %td= spot.title
           %td
-            %input.form-control.hours_worked.num-input{type: 'number', value: "#{spot.hours_worked}"}
+            - if [spot.assignee.id, @spotcheck.checker.id].include? current_user.id
+              %input.form-control.hours_worked.num-input{type: 'number', value: "#{spot.hours_worked}"}
+            -else
+              %p= spot.hours_worked
           %td
-            %textarea.form-control.work_accomplished
+            - if [spot.assignee.id, @spotcheck.checker.id].include? current_user.id
+              %textarea.form-control.work_accomplished
+                = spot.work_accomplished
+            - else
               = spot.work_accomplished
   - if @spotcheck.spots.blank?
     %h4 This spotcheck currently has no spots

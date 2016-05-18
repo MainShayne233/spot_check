@@ -3,7 +3,7 @@
   = link_to 'Create New Spotcheck', '#', class: 'btn btn-default pull-right', id: 'create_new_spotcheck'
 
 .container
-  - current_user.spotchecks.each do |spotcheck|
+  - current_user.affiliated_spotchecks.each do |spotcheck|
     %h2= link_to "#{spotcheck.title}", spotcheck
 
 = render 'form'

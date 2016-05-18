@@ -2,3 +2,9 @@
   .container-fluid
     %ul.nav.navbar-nav
       %li= link_to 'Spotchecks', root_path
+      -if current_user
+        %li= link_to 'Sign Out', destroy_user_session_path
+-if current_user
+  .container
+    Hello
+    = current_user.name

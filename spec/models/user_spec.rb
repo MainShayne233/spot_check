@@ -59,6 +59,16 @@ describe User do
     end
   end
 
+  describe 'affiliated_spotchecks' do
+    it 'should return the spotchecks the user is a part of or a checker of' do
+      user = FactoryGirl.create(:user)
+      owned_spotcheck = FactoryGirl.create(:spotcheck, checker: user)
+      member_of_spotcheck = FactoryGirl.create(:spotcheck)
+      FactoryGirl.create(:spot, spotcheck: member_of_spotcheck, assignee: user)
+      expect(user.affiliated_spotchecks.sort).to eq [owned_spotcheck, member_of_spotcheck].sort
+    end
+  end
+
   describe 'capitalize_names' do
     it 'should capitalize the names of a user before saving it to the databse' do
       user = FactoryGirl.create(:user, first_name: 'simon', last_name: 'nomis')
@@ -66,5 +76,6 @@ describe User do
       expect(user.last_name).to eq 'Nomis'
     end
   end
+
 
 end

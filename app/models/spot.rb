@@ -7,6 +7,7 @@ class Spot < ActiveRecord::Base
   validates :activity, presence: true, uniqueness: {scope: [:assignee, :spotcheck]}
   validates :spotcheck, presence: true
   validates :assignee, presence: true
+
   def title
     self.activity.title
   end

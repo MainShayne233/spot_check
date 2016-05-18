@@ -38,6 +38,11 @@ class User < ActiveRecord::Base
     self.spots.where(spotcheck_id: spotcheck.id)
   end
 
+  def affiliated_spotchecks
+    spotcheck_ids = self.spots.pluck(:spotcheck_id).concat self.spotchecks.pluck(:id)
+    Spotcheck.where(id: spotcheck_ids.uniq).order(:title)
+  end
+
   private
 
   def capitalize_names
