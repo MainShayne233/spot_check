@@ -12,7 +12,7 @@ class Spotcheck < ActiveRecord::Base
   end
 
   def spots_by_users
-    self.assignees.order(:last_name).map{|assignee| assignee.spots.where(spotcheck_id: spotcheck)}.flatten
+    self.assignees.order(:last_name).map{|assignee| assignee.spots.where(spotcheck_id: self.id)}.flatten
   end
 
 

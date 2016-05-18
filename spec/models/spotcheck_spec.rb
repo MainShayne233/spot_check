@@ -45,8 +45,10 @@ RSpec.describe Spotcheck, type: :model do
 
   describe 'spots_by_users' do
     it 'should return its spots sorted by user last names' do
-      spotcheck = FactroyGirl.create(:spotcheck)
-      users = (1..5).
+      spotcheck = FactoryGirl.create(:spotcheck)
+      users = (1..5).map{fake_last_name}.uniq.sort.map{|last_name| FactoryGirl.create(:user, last_name: last_name)}
+      spots = users.map {|user| FactoryGirl.create(:spot, spotcheck: spotcheck, assignee: user)}
+      expect(spotcheck.spots_by_users).to eq spots
     end
   end
 end
