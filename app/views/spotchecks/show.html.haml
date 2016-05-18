@@ -21,7 +21,7 @@
           %td= spot.title
           %td
             - if [spot.assignee.id, @spotcheck.checker.id].include? current_user.id
-              %input.form-control.hours_worked.num-input{type: 'number', value: "#{spot.hours_worked}"}
+              %input.form-control.hours_worked.num-input{type: 'number', value: "#{spot.hours_worked}", id: spot.id}
             -else
               %p= spot.hours_worked
           %td

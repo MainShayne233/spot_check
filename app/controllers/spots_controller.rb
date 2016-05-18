@@ -7,6 +7,12 @@ class SpotsController < ApplicationController
     end
   end
 
+  def update
+    byebug
+    @spot = Spot.find(params[:id])
+    @spot.update(spot_params)
+  end
+
 
   private
 

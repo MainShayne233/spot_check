@@ -64,7 +64,7 @@ save_new_activity = ->
       $("#pre-existing-activities").show()
       elem = "select[name='spot[activity_id]']>option:eq(" + (data['index'] + 2) + ")"
       $(elem).prop('selected', true)
-})
+  })
 
 
 
