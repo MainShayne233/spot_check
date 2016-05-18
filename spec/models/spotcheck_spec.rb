@@ -43,6 +43,10 @@ RSpec.describe Spotcheck, type: :model do
     end
   end
 
-
-
+  describe 'spots_by_users' do
+    it 'should return its spots sorted by user last names' do
+      spotcheck = FactroyGirl.create(:spotcheck)
+      users = (1..5).
+    end
+  end
 end

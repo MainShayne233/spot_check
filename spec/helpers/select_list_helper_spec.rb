@@ -1,8 +1,6 @@
 require 'rails_helper'
 include SelectListHelper
 
-
-
 RSpec.describe SelectListHelper do
 
   describe 'user_select_list' do

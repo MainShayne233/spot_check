@@ -11,9 +11,4 @@ module SelectListHelper
     options.unshift ['Create New', 0]
   end
 
-  def first_activity(creator_id)
-    activity = Activity.where(creator_id: creator_id).first
-    [activity.title, activity.id]
-  end
-
 end
