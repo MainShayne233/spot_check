@@ -5,8 +5,8 @@ module SelectListHelper
     options.unshift ['', -1]
   end
 
-  def activity_select_list(creator_id)
-    options = Activity.where(creator_id: creator_id).order(:title).map{|activity| [activity.title, activity.id]}
+  def activity_select_list(creator)
+    options = creator.activities.order(:title).map{|activity| [activity.title, activity.id]}
     options.unshift ['', -1]
     options.unshift ['Create New', 0]
   end

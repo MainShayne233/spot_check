@@ -5,7 +5,7 @@ class ActivitiesController < ApplicationController
     if @activity.save
       respond_to do |format|
         format.json {render json: {index: @activity.alphabetical_index(current_user),
-                                   activities: activity_select_list(current_user.id)}}
+                                   activities: activity_select_list(current_user)}}
       end
     end
   end
