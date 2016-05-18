@@ -26,5 +26,7 @@ activities = activity_titles.map {|title| user.activities.create title: title}
 
 
 activities.each {|activity| spotcheck.spots.create(activity_id: activity.id,
-                                                   assignee_id: assignees[rand(4)].id)}
+                                                   assignee_id: assignees[rand(4)].id,
+                                                   hours_worked: rand(40),
+                                                   work_accomplished: Faker::Hipster.paragraph)}
 

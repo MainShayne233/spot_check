@@ -4,10 +4,23 @@
   = link_to 'Create New Spot', '#', class: 'btn btn-default pull-right', id: 'create_new_spot'
 
 .container
-  - spots_by_users(@spotcheck).each do |spot|
-    .container.table-bordered
-      %h4.inline.table-bordered= spot.assignee.formal_name
-      %h4.inline= spot.title
+  - @spotcheck.assignees.each do |assignee|
+    %h4= assignee.formal_name
+    %table.table.table-bordered.table-striped
+      %thead
+        %tr
+          %th Activity
+          %th Hours Worked
+          %th Work Accomplished
+      %tbody
+      - assignee.spots_from(@spotcheck).each do |spot|
+        %tr
+          %td= spot.title
+          %td
+            %input.form-control.hours_worked.num-input{type: 'number', value: "#{spot.hours_worked}"}
+          %td
+            %textarea.form-control.work_accomplished
+              = spot.work_accomplished
   - if @spotcheck.spots.blank?
     %h4 This spotcheck currently has no spots
 
