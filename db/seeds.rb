@@ -30,7 +30,7 @@ spotchecks.each do |spotcheck|
                              activity_id: activities[rand(3)].id,
                              hours_worked: rand(40),
                              hours_left: rand(100),
-                             work_accomplished: Faker::Hipster.paragraph)
+                             work_accomplished: Faker::Lorem.paragraph)
     end
   end
 end
@@ -48,6 +48,6 @@ other_activities.each do |activity|
                                  activity_id: activity.id,
                                  hours_worked: rand(40),
                                  hours_left: rand(100),
-                                 work_accomplished: Faker::Hipster.paragraph)
+                                 work_accomplished: Faker::Lorem.paragraph)
   end
 end
