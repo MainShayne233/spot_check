@@ -3,13 +3,22 @@ ready = ->
   # Set listener for hours_worked inputs
   $('.hours_worked').on 'input', ->
     hours_worked = $(this).val()
+    if hours_worked == ''
+      hours_worked = 0
+      $(this).val(0)
     id = $(this).attr('id')
     params = {spot: {hours_worked: hours_worked}}
-    update_spot(id, params)
+    assignee_id = $(this).attr('assignee_id')
+    total_elem = $('#total_hours_' + assignee_id)
+    console.log assignee_id
+    update_spot(id, params, total_elem)
 
   # Set listener for hours_left inputs
   $('.hours_left').on 'input', ->
     hours_left = $(this).val()
+    if hours_left == ''
+      hours_left = 0
+      $(this).val(0)
     id = $(this).attr('id')
     params = {spot: {hours_left: hours_left}}
     update_spot(id, params)

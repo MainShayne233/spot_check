@@ -8,7 +8,12 @@
 
 .container
   - @spotcheck.assignees.each do |assignee|
-    %h4= assignee.formal_name
+    .row
+      .col-md-4
+        %h4= assignee.formal_name
+      .col-md-4{id: "total_hours_#{assignee.id}"}
+        Total Hours:
+        = assignee.total_hours(@spotcheck)
     %table.table.table-bordered.table-striped.spot_table
       %thead
         %tr
@@ -25,7 +30,8 @@
               %input.form-control.hours_worked.num-input{value: "#{spot.hours_worked}",
                                                          maxlength: 5,
                                                          type: 'text',
-                                                         id: spot.id}
+                                                         id: spot.id,
+                                                         assignee_id: assignee.id}
             -else
               .center.center-text= spot.hours_worked
           %td.hours_left_column

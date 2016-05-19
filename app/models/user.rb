@@ -43,6 +43,10 @@ class User < ActiveRecord::Base
     Spotcheck.where(id: spotcheck_ids.uniq).order(:title)
   end
 
+  def total_hours(spotcheck)
+    self.spots.where(spotcheck_id: spotcheck.id).map{|spot| spot.hours_worked}.reduce(:+)
+  end
+
   private
 
   def capitalize_names

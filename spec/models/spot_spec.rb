@@ -28,7 +28,6 @@ RSpec.describe Spot, type: :model do
 
 
   describe 'dependencies' do
-
     it 'should be deleted if one of its dependencies is deleted' do
       [:spotcheck, :activity, :assignee].each do |relation|
         dependency = FactoryGirl.create(relation)

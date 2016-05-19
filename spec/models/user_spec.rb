@@ -77,5 +77,18 @@ describe User do
     end
   end
 
+  describe 'total hours' do
+    it 'should return a the total hours of an assignee for a given spotcheck' do
+      assignee = FactoryGirl.create(:user)
+      spotcheck = FactoryGirl.create(:spotcheck)
+      durations = (1..5).map{rand(40)}
+      durations.each {|hours_worked| FactoryGirl.create(:spot, spotcheck: spotcheck,
+                                                           assignee: assignee,
+                                                           hours_worked: hours_worked)}
+
+      expect(assignee.total_hours(spotcheck)).to eq durations.reduce(:+)
+    end
+  end
+
 
 end

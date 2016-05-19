@@ -11,7 +11,7 @@ class SpotsController < ApplicationController
     @spot = Spot.find(params[:id])
     @spot.update(spot_params)
     respond_to do |format|
-      format.json { render json: true}
+      format.json { render json: @spot.assignee.total_hours(@spot.spotcheck)}
     end
   end
 
