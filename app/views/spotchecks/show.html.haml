@@ -9,24 +9,36 @@
 .container
   - @spotcheck.assignees.each do |assignee|
     %h4= assignee.formal_name
-    %table.table.table-bordered.table-striped
+    %table.table.table-bordered.table-striped.spot_table
       %thead
         %tr
-          %th Activity
-          %th Hours Worked
-          %th Work Accomplished
+          %th Activity:
+          %th Hours Worked:
+          %th Hours Left:
+          %th Work Accomplished:
       %tbody
       - assignee.spots_from(@spotcheck).each do |spot|
-        %tr
-          %td= spot.title
-          %td
+        %tr.spot_row
+          %td.activity_title= spot.title
+          %td.hours_worked_column
             - if [spot.assignee.id, @spotcheck.checker.id].include? current_user.id
-              %input.form-control.hours_worked.num-input{type: 'number', value: "#{spot.hours_worked}", id: spot.id}
+              %input.form-control.hours_worked.num-input{value: "#{spot.hours_worked}",
+                                                         maxlength: 5,
+                                                         type: 'text',
+                                                         id: spot.id}
             -else
-              %p= spot.hours_worked
-          %td
+              .center.center-text= spot.hours_worked
+          %td.hours_left_column
+            - if @spotcheck.checker.id == current_user.id
+              %input.form-control.hours_left.num-input{value: "#{spot.hours_left}",
+                                                       maxlength: 5,
+                                                       type: 'text',
+                                                       id: spot.id}
+            - else
+              .center.center-text= spot.hours_left
+          %td.work_accomplished_column
             - if [spot.assignee.id, @spotcheck.checker.id].include? current_user.id
-              %textarea.form-control.work_accomplished
+              %textarea.form-control.work_accomplished{id: spot.id, rows: 3}
                 = spot.work_accomplished
             - else
               = spot.work_accomplished

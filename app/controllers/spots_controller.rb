@@ -8,16 +8,23 @@ class SpotsController < ApplicationController
   end
 
   def update
-    byebug
     @spot = Spot.find(params[:id])
     @spot.update(spot_params)
+    respond_to do |format|
+      format.json { render json: true}
+    end
   end
 
 
   private
 
   def spot_params
-    params.require(:spot).permit(:assignee_id, :activity_id, :spotcheck_id)
+    params.require(:spot).permit(:assignee_id,
+                                 :activity_id,
+                                 :spotcheck_id,
+                                 :hours_worked,
+                                 :hours_left,
+                                 :work_accomplished)
   end
 
 end
