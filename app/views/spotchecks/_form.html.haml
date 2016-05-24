@@ -5,7 +5,7 @@
         %button.close{'data-dismiss' => 'modal', type: 'button'} &times;
         %h4.modal-title New Spotcheck
       .modal-body
-
+        #errors
         = simple_form_for @spotcheck do |f|
           = f.input :title
 

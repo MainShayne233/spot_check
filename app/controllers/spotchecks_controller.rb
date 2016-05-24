@@ -9,8 +9,10 @@ class SpotchecksController < ApplicationController
     if @spotcheck.save
       render 'index'
     else
-      flash[:error] = @spotcheck.errors.full_messages.first
-      render 'index'
+      @errors = @spotcheck.errors.full_messages.first
+      respond_to do |format|
+        format.js { render 'spotchecks/failed_spotcheck_errors.coffee.erb'}
+      end
     end
   end
 
