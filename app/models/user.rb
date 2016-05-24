@@ -47,6 +47,12 @@ class User < ActiveRecord::Base
     self.spots.where(spotcheck_id: spotcheck.id).map{|spot| spot.hours_worked}.reduce(:+)
   end
 
+  def role_in(spotcheck)
+    return 'checker' if spotcheck.checker == self
+    return 'assignee' if affiliated_spotchecks.include? spotcheck
+    'no role'
+  end
+
   private
 
   def capitalize_names

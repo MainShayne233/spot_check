@@ -24,6 +24,12 @@ RSpec.describe Spot, type: :model do
       expect(spot.save).to be
     end
 
+    it 'should have a default value of 0 for hours_worked and hours_left' do
+      spot = FactoryGirl.create(:spot)
+      expect(spot.hours_worked).to eq 0
+      expect(spot.hours_left).to eq 0
+    end
+
   end
 
 

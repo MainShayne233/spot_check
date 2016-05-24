@@ -90,5 +90,18 @@ describe User do
     end
   end
 
+  describe 'role_in' do
+    it 'should return the role a user has given a specific spotcheck' do
+      user = FactoryGirl.create(:user)
+      checker_of = FactoryGirl.create(:spotcheck, checker: user)
+      assignee_of = FactoryGirl.create(:spotcheck)
+      FactoryGirl.create(:spot, assignee: user, spotcheck: assignee_of)
+      no_role = FactoryGirl.create(:spotcheck)
+      expect(user.role_in(checker_of)).to eq 'checker'
+      expect(user.role_in(assignee_of)).to eq 'assignee'
+      expect(user.role_in(no_role)).to eq 'no role'
+    end
+  end
+
 
 end

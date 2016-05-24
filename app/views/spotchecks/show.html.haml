@@ -7,7 +7,7 @@
     = link_to 'Create New Spot', '#', class: 'btn btn-default pull-right', id: 'create_new_spot'
 
 .container
-  - @spotcheck.assignees.each do |assignee|
+  - @spotcheck.assignees.order(:last_name).each do |assignee|
     .row
       .col-md-4
         %h4= assignee.formal_name
@@ -27,19 +27,19 @@
           %td.activity_title= spot.title
           %td.hours_worked_column
             - if [spot.assignee.id, @spotcheck.checker.id].include? current_user.id
-              %input.form-control.hours_worked.num-input{value: "#{spot.hours_worked}",
-                                                         maxlength: 5,
-                                                         type: 'text',
-                                                         id: spot.id,
-                                                         assignee_id: assignee.id}
+              %input.form-control.hours_worked.num-input.select{value: "#{spot.hours_worked}",
+                                                               maxlength: 5,
+                                                               type: 'text',
+                                                               id: spot.id,
+                                                               assignee_id: assignee.id}
             -else
               .center.center-text= spot.hours_worked
           %td.hours_left_column
             - if @spotcheck.checker.id == current_user.id
-              %input.form-control.hours_left.num-input{value: "#{spot.hours_left}",
-                                                       maxlength: 5,
-                                                       type: 'text',
-                                                       id: spot.id}
+              %input.form-control.hours_left.num-input.select{value: "#{spot.hours_left}",
+                                                              maxlength: 5,
+                                                              type: 'text',
+                                                              id: spot.id}
             - else
               .center.center-text= spot.hours_left
           %td.work_accomplished_column
