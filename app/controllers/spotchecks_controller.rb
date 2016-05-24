@@ -8,6 +8,9 @@ class SpotchecksController < ApplicationController
     @spotcheck = current_user.spotchecks.new(spotcheck_params)
     if @spotcheck.save
       render 'index'
+    else
+      flash[:error] = @spotcheck.errors.full_messages.first
+      render 'index'
     end
   end
 

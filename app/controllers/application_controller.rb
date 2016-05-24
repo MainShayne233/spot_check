@@ -12,4 +12,8 @@ class ApplicationController < ActionController::Base
     options.unshift ['Create New', 0]
   end
 
+  def errors_display
+
+  end
+
 end
