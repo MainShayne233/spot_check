@@ -144,7 +144,21 @@ describe User do
     end
   end
 
-  
+  describe 'is_checker_of' do
+    it 'should return true if the user is the checker of the given spotcheck' do
+      checker = FactoryGirl.create(:user)
+      spotcheck = FactoryGirl.create(:spotcheck, checker: checker)
+      expect(checker.is_checker_of(spotcheck)).to be
+    end
+
+    it 'should return false otherwise' do
+      user = FactoryGirl.create(:user)
+      spotcheck = FactoryGirl.create(:spotcheck)
+      expect(user.is_checker_of(spotcheck)).to_not be
+      FactoryGirl.create(:spot, assignee: user, spotcheck: spotcheck)
+      expect(user.is_checker_of(spotcheck)).to_not be
+    end
+  end
 
 
 end

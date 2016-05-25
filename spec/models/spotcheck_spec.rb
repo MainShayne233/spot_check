@@ -51,4 +51,18 @@ RSpec.describe Spotcheck, type: :model do
       expect(spotcheck.spots_by_users).to eq spots
     end
   end
+
+  describe 'has_no_spots?' do
+    it 'should return true if the spotcheck has no spots' do
+      spotcheck = FactoryGirl.create(:spotcheck)
+      expect(spotcheck.has_no_spots?).to be
+    end
+
+    it 'should return false otherwise' do
+      spotcheck = FactoryGirl.create(:spotcheck)
+      FactoryGirl.create(:spot, spotcheck: spotcheck)
+      expect(spotcheck.has_no_spots?).to_not be
+    end
+  end
+
 end

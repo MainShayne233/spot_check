@@ -1,12 +1,12 @@
 .container
-  - if @spotcheck.checker.id == current_user.id
+  - if current_user.is_checker_of(@spotcheck)
     = link_to 'Delete Spotcheck', @spotcheck, {method: :delete,
                                                class: 'btn btn-danger pull-right',
                                                data: spotcheck_delete_confirm}
 
   %h1.inline= @spotcheck.title
 
-  - if @spotcheck.checker.id == current_user.id
+  - if current_user.is_checker_of(@spotcheck)
     = link_to 'Create New Spot', 'javascript: void(0)', class: 'btn btn-default pull-right', id: 'create_new_spot'
 
 .container
@@ -24,15 +24,15 @@
           %th Hours Worked:
           %th Hours Left:
           %th Work Accomplished:
-          - if @spotcheck.checker == current_user
+          - if current_user.is_checker_of(@spotcheck)
             %th.delete_column Delete:
       %tbody
       - assignee.spots_from(@spotcheck).each do |spot|
         = render spot, assignee: assignee
 
 
-  - if @spotcheck.spots.blank?
-    %h4 This spotcheck currently has no spots
+  - if @spotcheck.has_no_spots?
+    %h4 This spotcheck currently has no spots.
 
 
 = render 'spots/form'

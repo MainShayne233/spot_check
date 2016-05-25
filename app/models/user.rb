@@ -55,9 +55,9 @@ class User < ActiveRecord::Base
     spot.spotcheck.checker == self
   end
 
-  # def is_checker_of(spotcheck)
-  #   spotcheck.checker == self
-  # end
+  def is_checker_of(spotcheck)
+    spotcheck.checker == self
+  end
 
   def role_in(spotcheck)
     return 'checker' if spotcheck.checker == self

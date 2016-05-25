@@ -15,5 +15,9 @@ class Spotcheck < ActiveRecord::Base
     self.assignees.order(:last_name).map{|assignee| assignee.spots.where(spotcheck_id: self.id)}.flatten
   end
 
+  def has_no_spots?
+    self.spots.blank?
+  end
+
 
 end
