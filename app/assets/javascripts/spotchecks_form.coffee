@@ -32,8 +32,9 @@ ready = ->
       return false
     true
 
-  # Removes error messages on spotcheck form close
+  # Removes input and error messages on spotcheck form close
   $('#new_spotcheck_modal').on 'hidden.bs.modal', ->
+    $("input[name='spotcheck[title]']").val('')
     $('#errors').html('')
 
 

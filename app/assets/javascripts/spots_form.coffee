@@ -19,26 +19,49 @@ ready = ->
   # Sets the listener for the cancel button to toggle the activity input
 
   $("#cancel-activity").click ->
-    $("#new-activity").hide()
-    $("#pre-existing-activities").show()
-    $("select[name='spot[activity_id]']>option:eq(1)").prop('selected', true)
+    cancel_activity()
 
-
-  # Submits ajax request for new activity, and updates the dropdown with the new activity
+  # sets listener for new activity save button and redirects to validation function
 
   $("#save-activity").click ->
-    save_new_activity()
-
+    validate_new_activity()
 
   # Alters enter key function from submitting spot form to submitting activity form
 
   $('#new-activity-input').on 'keypress', (e) ->
     if e.keyCode == 13
-      save_new_activity()
+      validate_new_activity()
 
   $('#new_spot').on 'keypress', (e) ->
     if e.keyCode == 13
       return false
+      
+      
+  # Clears new spot form when closed
+  $('#new_spot_modal').on 'hidden.bs.modal', ->
+    $('#errors').html('')
+    cancel_activity()
+
+# Validates correct input for new activity form
+
+validate_new_activity = ->
+  input = $('#new-activity-input').val()
+  if input.trim() == ''
+    unless $('#errors').html() == error_div('Title cannot be blank')
+      $('#errors').html(error_div('Title cannot be blank'))
+    $('#new-activity-input').focus()
+    return false
+  activities = []
+  $("select[name='spot[activity_id]'] > option").each ->
+    activities.push($(@).html().trim())
+  if $.inArray(input.trim(), activities) != -1
+    error = "'" + input + "' activity already exists"
+    unless $('#errors').html() == error_div(error)
+      $('#errors').html(error_div(error))
+    $('#new-activity-input').focus()
+    return false
+  save_new_activity()
+  $('#errors').html('')
 
 
 # Makes ajax request so submit new actvity, returns with list of activities, new activity, and its index
@@ -65,6 +88,12 @@ save_new_activity = ->
       elem = "select[name='spot[activity_id]']>option:eq(" + (data['index'] + 2) + ")"
       $(elem).prop('selected', true)
   })
+
+cancel_activity = ->
+  $("#new-activity").hide()
+  $("#pre-existing-activities").show()
+  $("select[name='spot[activity_id]']>option:eq(1)").prop('selected', true)
+  $('#errors').html('')
 
 
 

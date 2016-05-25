@@ -16,6 +16,7 @@
               = f.label :activity
               = f.select :activity_id, activity_select_list(@spotcheck.checker), selected: ['', -1]
             #new-activity.form-horizontal
+              #errors
               = f.label :activity
               %input.inline.form-control.small-form#new-activity-input
               = link_to 'Save', '#', class: 'btn btn-primary btn-sm', id: 'save-activity'
