@@ -9,5 +9,6 @@ update_spot = (id, params, total_elem = null) ->
         total_elem.html('Total Hours: ' + data)
   })
   
+  
 
 window.update_spot = update_spot

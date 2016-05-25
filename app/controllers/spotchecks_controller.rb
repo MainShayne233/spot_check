@@ -7,15 +7,16 @@ class SpotchecksController < ApplicationController
 
   def create
     @spotcheck = current_user.spotchecks.new(spotcheck_params)
-    unless @spotcheck.save
-      flash[:danger] = @spotcheck.errors.full_messages.first
+    @spotcheck.save
+    respond_to do |format|
+      format.json {render json: @spotcheck.errors.full_messages.first}
     end
-    redirect_to root_path
   end
 
   def show
     @spotcheck = Spotcheck.find(params[:id])
     @spot = Spot.new
+    @activity = Activity.new
   end
 
   def destroy

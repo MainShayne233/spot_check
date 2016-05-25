@@ -2,8 +2,9 @@ class SpotsController < ApplicationController
 
   def create
     @spot = Spot.new(spot_params)
-    if @spot.save
-      redirect_to "/spotchecks/#{@spot.spotcheck_id}"
+    @spot.save
+    respond_to do |format|
+      format.json {render json: @spot.errors.full_messages.first}
     end
   end
 

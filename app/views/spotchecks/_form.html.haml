@@ -6,8 +6,9 @@
         %h4.modal-title New Spotcheck
       .modal-body
         #errors
-        = simple_form_for @spotcheck do |f|
+        = simple_form_for @spotcheck, remote: true do |f|
           = f.input :title
           .modal-footer
-            =f.submit class: 'btn btn-primary', id: 'spotcheck_save'
-            %button.btn.btn-default{'data-dismiss' => 'modal', type: 'button'} Close
+        %button.btn.btn-primary#spotcheck_save Save
+        -#=f.submit class: 'btn btn-primary', id: 'spotcheck_save'
+        %button.btn.btn-default{'data-dismiss' => 'modal', type: 'button'} Close

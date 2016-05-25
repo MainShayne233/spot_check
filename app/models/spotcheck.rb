@@ -4,7 +4,7 @@ class Spotcheck < ActiveRecord::Base
   has_many :spots, dependent: :destroy
 
   validates :checker, presence: true
-  validates :title, presence: true, uniqueness: {scope: :checker}
+  validates :title, presence: true, uniqueness: {scope: :checker, case_sensitive: false}
 
   def assignees
     assignee_ids = self.spots.map {|spot| spot.assignee_id}

@@ -12,25 +12,14 @@ ready = ->
     $('#new_spotcheck_modal').modal('toggle')
     modal_focus $("input[name='spotcheck[title]']")
 
-
-  # Validates proper form input for spotcheck form
+  # Sets listener for spotcheck save button
   $('#spotcheck_save').click ->
-    input = $("input[name='spotcheck[title]']").val()
-    if input.trim() == ''
-      unless $('#errors').html() == error_div('Title cannot be blank')
-        $('#errors').html(error_div('Title cannot be blank'))
-      $("input[name='spotcheck[title]']").focus()
-      return false
-    spotchecks = []
-    $('.spotcheck_title').each ->
-      spotchecks.push $(@).html().trim()
-    if $.inArray(input.trim(), spotchecks) != -1
-      error_msg = "'" + input + "' spotcheck already exists"
-      unless $('#errors').html() == error_div(error_msg)
-        $('#errors').html(error_div(error_msg))
-      $("input[name='spotcheck[title]']").focus()
-      return false
-    true
+    spotcheck_submit()
+
+  # Sets keypress listener for enter to trigger spotcheck submission
+  $("input[name='spotcheck[title]']").on 'keypress', (e) ->
+    if e.keyCode == 13
+      spotcheck_submit()
 
   # Removes input and error messages on spotcheck form close
   $('#new_spotcheck_modal').on 'hidden.bs.modal', ->
@@ -38,10 +27,29 @@ ready = ->
     $('#errors').html('')
 
 
+# Saves new spotcheck, or displays error if input is invalid
+
+spotcheck_submit = ->
+  form = $('form#new_spotcheck')
+  $.ajax({
+    type: 'POST',
+    url: form.attr('action'),
+    data: form.serialize(),
+    dataType: 'JSON',
+    success: ->
+      location.reload()
+    error: (data) ->
+      error_msg = data.responseText
+      unless $('#errors').html() == error_msg
+        $('#errors').html(error_div(error_msg))
+  })
+
 modal_focus = (target) ->
   setTimeout ->
     target.focus()
   , 200
+  
+
 
 
 

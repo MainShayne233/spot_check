@@ -1,12 +1,14 @@
 class ActivitiesController < ApplicationController
 
-  def new
+  def create
     @activity = current_user.activities.new(activity_params)
     if @activity.save
-      respond_to do |format|
-        format.json {render json: {index: @activity.alphabetical_index(current_user),
-                                   activities: activity_select_list(current_user)}}
-      end
+      data = {index: @activity.alphabetical_index(current_user), activities: activity_select_list(current_user)}
+    else
+      data = @activity.errors.full_messages.first
+    end
+    respond_to do |format|
+      format.json {render json: data}
     end
   end
 

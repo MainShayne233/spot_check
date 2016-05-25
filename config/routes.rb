@@ -10,6 +10,8 @@ Rails.application.routes.draw do
 
   resources :spots
 
-  patch '/activities/new' => 'activities#new'
+  resource :activities
+
+  # patch '/activities/create' => 'activities#create'
 
 end
