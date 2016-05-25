@@ -1,24 +1,21 @@
 class SpotchecksController < ApplicationController
 
   def index
+    @spotchecks = current_user.affiliated_spotchecks
     @spotcheck = current_user.spotchecks.new
   end
 
   def create
     @spotcheck = current_user.spotchecks.new(spotcheck_params)
-    if @spotcheck.save
-      render 'index'
-    else
-      @errors = @spotcheck.errors.full_messages.first
-      respond_to do |format|
-        format.js { render 'spotchecks/failed_spotcheck_errors.coffee.erb'}
-      end
+    unless @spotcheck.save
+      flash[:danger] = @spotcheck.errors.full_messages.first
     end
+    redirect_to root_path
   end
 
   def show
     @spotcheck = Spotcheck.find(params[:id])
-    @spot = Spot.new()
+    @spot = Spot.new
   end
 
   def destroy

@@ -3,9 +3,9 @@
   = link_to 'Create New Spotcheck', '#', class: 'btn btn-default pull-right', id: 'create_new_spotcheck'
 
 
-- current_user.affiliated_spotchecks.each do |spotcheck|
+- @spotchecks.each do |spotcheck|
   .container
-    %h2.inline= link_to "#{spotcheck.title}", spotcheck
+    %h2.inline= link_to "#{spotcheck.title}", spotcheck, class: 'spotcheck_title'
     %i.inline= current_user.role_in(spotcheck)
 
 #spotcheck_form= render 'form'
