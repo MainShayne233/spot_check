@@ -8,6 +8,8 @@ Rails.application.routes.draw do
 
   resources :spotchecks
 
+  get 'spotchecks/:id/download' => 'spotchecks#download', as: 'download_spotcheck'
+
   resources :spots
 
   resource :activities

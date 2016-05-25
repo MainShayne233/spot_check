@@ -16,4 +16,14 @@ class Spot < ActiveRecord::Base
     self.spotcheck.checker.name
   end
 
+  def spreadsheet_row
+    row = []
+    row << self.assignee.formal_name
+    row << self.activity.title
+    row << self.hours_worked
+    row << self.hours_left
+    row << self.work_accomplished
+    row
+  end
+
 end

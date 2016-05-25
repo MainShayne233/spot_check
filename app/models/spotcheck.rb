@@ -20,4 +20,25 @@ class Spotcheck < ActiveRecord::Base
   end
 
 
+  def generate_spreadsheet
+    titles_row = ['Assignee:', 'Activity:', 'Hours Worked:', 'Hours Left:', 'Work Accomplished:']
+
+    workbook = Spreadsheet::Workbook.new
+
+    workbook.create_worksheet name: self.title
+
+    workbook.worksheet(0).insert_row(0, titles_row)
+
+    self.spots_by_users.each_with_index do |spot, index|
+      workbook.worksheet(0).insert_row(index + 1, spot.spreadsheet_row)
+    end
+
+    path = "tmp/spreadsheets/#{self.title}_spotcheck_#{Time.now.to_s[0..-7]}.xls"
+
+    workbook.write(path)
+
+    path
+  end
+
+
 end

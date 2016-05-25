@@ -9,6 +9,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'will_paginate'
+gem 'spreadsheet'
 group :development do
   gem 'web-console', '~> 2.0'
   gem 'spring'
@@ -24,9 +25,9 @@ group :development do
   gem 'guard-rspec'
   gem 'html2haml'
   gem 'rails_layout'
-  gem 'rb-fchange', :require=>false
-  gem 'rb-fsevent', :require=>false
-  gem 'rb-inotify', :require=>false
+  gem 'rb-fchange', require: false
+  gem 'rb-fsevent', require: false
+  gem 'rb-inotify', require: false
   gem 'spring-commands-rspec'
 end
 group :development, :test do
@@ -44,5 +45,5 @@ group :test do
   gem 'database_cleaner'
   gem 'launchy'
   gem 'selenium-webdriver'
-  gem 'simplecov', :require => false
+  gem 'simplecov', require: false
 end

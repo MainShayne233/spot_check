@@ -26,6 +26,11 @@ class SpotchecksController < ApplicationController
     end
   end
 
+  def download
+    @spotcheck = Spotcheck.find(params[:id])
+    send_file @spotcheck.generate_spreadsheet
+  end
+
 
   private
 
