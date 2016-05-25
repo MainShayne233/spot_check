@@ -16,6 +16,13 @@ class SpotsController < ApplicationController
     end
   end
 
+  def destroy
+    @spot = Spot.find(params[:id])
+    @spot.destroy
+    @spotcheck = Spotcheck.find(@spot.spotcheck.id)
+    redirect_to @spotcheck
+  end
+
 
   private
 

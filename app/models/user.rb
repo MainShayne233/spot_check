@@ -47,6 +47,18 @@ class User < ActiveRecord::Base
     self.spots.where(spotcheck_id: spotcheck.id).map{|spot| spot.hours_worked}.reduce(:+)
   end
 
+  def is_affiliated_with(spot)
+    spot.spotcheck.checker == self or spot.assignee == self
+  end
+
+  def is_assigner_of(spot)
+    spot.spotcheck.checker == self
+  end
+
+  # def is_checker_of(spotcheck)
+  #   spotcheck.checker == self
+  # end
+
   def role_in(spotcheck)
     return 'checker' if spotcheck.checker == self
     return 'assignee' if affiliated_spotchecks.include? spotcheck

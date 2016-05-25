@@ -103,5 +103,48 @@ describe User do
     end
   end
 
+  describe 'is_affiliated_with' do
+
+    it 'should return true if the user is the assignee of the given spot' do
+      assignee = FactoryGirl.create(:user)
+      spot = FactoryGirl.create(:spot, assignee: assignee)
+      expect(assignee.is_affiliated_with(spot)).to be
+    end
+
+    it "should return true if the user is the checker of the given spot's spotcheck" do
+      checker = FactoryGirl.create(:user)
+      spotcheck = FactoryGirl.create(:spotcheck, checker: checker)
+      spot = FactoryGirl.create(:spot, spotcheck: spotcheck)
+      expect(checker.is_affiliated_with(spot)).to be
+    end
+
+    it 'should return false otherwise' do
+      user = FactoryGirl.create(:user)
+      spot = FactoryGirl.create(:spot)
+      expect(user.is_affiliated_with(spot)).to_not be
+    end
+
+  end
+
+  describe 'is_assigner_of' do
+
+    it "should return true if the user is the checker of the given spot's spotcheck" do
+      checker = FactoryGirl.create(:user)
+      spotcheck = FactoryGirl.create(:spotcheck, checker: checker)
+      spot = FactoryGirl.create(:spot, spotcheck: spotcheck)
+      expect(checker.is_assigner_of(spot)).to be
+    end
+
+    it 'should return false otherwise' do
+      user = FactoryGirl.create(:user)
+      spot = FactoryGirl.create(:spot)
+      expect(user.is_assigner_of(spot)).to_not be
+      spot = FactoryGirl.create(:spot, assignee: user)
+      expect(user.is_assigner_of(spot)).to_not be
+    end
+  end
+
+  
+
 
 end

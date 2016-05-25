@@ -1,0 +1,29 @@
+%tr.spot_row
+  %td.activity_title= spot.title
+  %td.hours_worked_column
+    - if current_user.is_affiliated_with(spot)
+      %input.form-control.hours_worked.num-input.select{value: "#{spot.hours_worked}",
+                                                               maxlength: 5,
+                                                               type: 'text',
+                                                               id: spot.id,
+                                                               assignee_id: assignee.id}
+    -else
+      .center.center-text= spot.hours_worked
+  %td.hours_left_column
+    - if current_user.is_assigner_of(spot)
+      %input.form-control.hours_left.num-input.select{value: "#{spot.hours_left}",
+                                                              maxlength: 5,
+                                                              type: 'text',
+                                                              id: spot.id}
+    - else
+      .center.center-text= spot.hours_left
+  %td.work_accomplished_column
+    - if current_user.is_affiliated_with(spot)
+      %textarea.form-control.work_accomplished{id: spot.id, rows: 3}
+        = spot.work_accomplished
+    - else
+      = spot.work_accomplished
+  - if current_user.is_assigner_of(spot)
+    %td.delete_column= link_to '', spot, {method: :delete,
+                                                  data: spot_delete_confirm,
+                                                  class: 'btn btn-danger glyphicon glyphicon-trash delete_spot'}

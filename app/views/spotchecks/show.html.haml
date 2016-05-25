@@ -1,10 +1,13 @@
 .container
   - if @spotcheck.checker.id == current_user.id
-    = link_to 'Delete Spotcheck', spotcheck_path, method: :delete, class: 'btn btn-danger pull-right', data: spotcheck_delete_confirm
+    = link_to 'Delete Spotcheck', @spotcheck, {method: :delete,
+                                               class: 'btn btn-danger pull-right',
+                                               data: spotcheck_delete_confirm}
+
   %h1.inline= @spotcheck.title
 
   - if @spotcheck.checker.id == current_user.id
-    = link_to 'Create New Spot', '#', class: 'btn btn-default pull-right', id: 'create_new_spot'
+    = link_to 'Create New Spot', 'javascript: void(0)', class: 'btn btn-default pull-right', id: 'create_new_spot'
 
 .container
   - @spotcheck.assignees.order(:last_name).each do |assignee|
@@ -25,33 +28,8 @@
             %th.delete_column Delete:
       %tbody
       - assignee.spots_from(@spotcheck).each do |spot|
-        %tr.spot_row
-          %td.activity_title= spot.title
-          %td.hours_worked_column
-            - if [spot.assignee.id, @spotcheck.checker.id].include? current_user.id
-              %input.form-control.hours_worked.num-input.select{value: "#{spot.hours_worked}",
-                                                               maxlength: 5,
-                                                               type: 'text',
-                                                               id: spot.id,
-                                                               assignee_id: assignee.id}
-            -else
-              .center.center-text= spot.hours_worked
-          %td.hours_left_column
-            - if @spotcheck.checker.id == current_user.id
-              %input.form-control.hours_left.num-input.select{value: "#{spot.hours_left}",
-                                                              maxlength: 5,
-                                                              type: 'text',
-                                                              id: spot.id}
-            - else
-              .center.center-text= spot.hours_left
-          %td.work_accomplished_column
-            - if [spot.assignee.id, @spotcheck.checker.id].include? current_user.id
-              %textarea.form-control.work_accomplished{id: spot.id, rows: 3}
-                = spot.work_accomplished
-            - else
-              = spot.work_accomplished
-          - if @spotcheck.checker == current_user
-            %td.delete_column= link_to '', '#', class: 'btn btn-danger glyphicon glyphicon-trash delete_spot'
+        = render spot, assignee: assignee
+
 
   - if @spotcheck.spots.blank?
     %h4 This spotcheck currently has no spots
