@@ -21,6 +21,8 @@
           %th Hours Worked:
           %th Hours Left:
           %th Work Accomplished:
+          - if @spotcheck.checker == current_user
+            %th.delete_column Delete:
       %tbody
       - assignee.spots_from(@spotcheck).each do |spot|
         %tr.spot_row
@@ -48,6 +50,9 @@
                 = spot.work_accomplished
             - else
               = spot.work_accomplished
+          - if @spotcheck.checker == current_user
+            %td.delete_column= link_to '', '#', class: 'btn btn-danger glyphicon glyphicon-trash delete_spot'
+
   - if @spotcheck.spots.blank?
     %h4 This spotcheck currently has no spots
 
