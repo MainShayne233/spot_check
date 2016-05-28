@@ -5,11 +5,12 @@
                                                data: spotcheck_delete_confirm}
 
   %h1.inline= @spotcheck.title
-  = link_to 'Download', download_spotcheck_path, class: 'btn btn-default inline'
 
 
   - if current_user.is_checker_of(@spotcheck)
     = link_to 'Create New Spot', 'javascript: void(0)', class: 'btn btn-default pull-right', id: 'create_new_spot'
+  .box
+    = link_to 'Download', download_spotcheck_path, class: 'btn btn-default inline'
 
 .container
   - @spotcheck.assignees.order(:last_name).each do |assignee|

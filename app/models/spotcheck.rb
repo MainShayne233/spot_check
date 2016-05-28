@@ -33,7 +33,7 @@ class Spotcheck < ActiveRecord::Base
       workbook.worksheet(0).insert_row(index + 1, spot.spreadsheet_row)
     end
 
-    path = "tmp/spreadsheets/#{self.title}_spotcheck_#{Time.now.to_s[0..-7]}.xls"
+    path = "tmp/#{self.title}_spotcheck_#{Time.now.strftime('%m-%e-%y_%I-%M-%S-%L')}.xls"
 
     workbook.write(path)
 

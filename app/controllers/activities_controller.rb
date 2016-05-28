@@ -1,5 +1,9 @@
 class ActivitiesController < ApplicationController
 
+  def show
+    @activities = current_user.activities.order(:title)
+  end
+
   def create
     @activity = current_user.activities.new(activity_params)
     if @activity.save

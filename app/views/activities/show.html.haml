@@ -1,0 +1,14 @@
+.container
+  %h1 Activities:
+  %table.table.table-bordered.table-striped.spot_table
+    %thead
+      %tr
+        %th Activity:
+        %th Spotcheck:
+        %th Assigned to:
+        %th Hours worked:
+        %th Hours left:
+        %th.delete_column Delete:
+    - @activities.each do |activity|
+      %tbody
+      = render activity
