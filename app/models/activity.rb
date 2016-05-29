@@ -11,5 +11,17 @@ class Activity < ActiveRecord::Base
     Activity.where(creator_id: creator.id).order(:title).pluck(:id).to_a.index(self.id)
   end
 
+  def assignees
+    self.spots.map{|spot| spot.assignee}.uniq
+  end
+
+
+  def spotchecks
+    self.spots.map{|spot| spot.spotcheck}.uniq
+  end
+
+
+
+
 end
 

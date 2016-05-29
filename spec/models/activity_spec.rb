@@ -62,4 +62,30 @@ RSpec.describe Activity, type: :model do
 
   end
 
+  describe 'assignees' do
+    it 'should return the assignees of spots with the activity' do
+      activity = FactoryGirl.create(:activity)
+      assignees = (1..5).map{FactoryGirl.create(:spot, activity: activity).assignee}
+      expect(activity.assignees.sort).to eq assignees.sort
+    end
+  end
+
+
+  describe 'spotchecks' do
+    it 'should return all spotchecks that have the activity' do
+      activity = FactoryGirl.create(:activity)
+      spotchecks = (1..5).map{FactoryGirl.create(:spot, activity: activity).spotcheck}
+      expect(activity.spotchecks.sort).to eq spotchecks.sort
+    end
+  end
+
+  describe 'total_hours_worked' do
+    it 'should return the total hours worked for all of the spots of the activity' do
+      activity = FactoryGirl.create(:activity)
+      spots = (1..10).map{FactoryGirl.create(:spot, activity: activity, hours_worked: rand(100))}
+      expected_total = spots.map{|spot| spot.hours_worked}.reduce(:+)
+      expect(activity.total_hours_worked).to eq expected_total
+    end
+  end
+
 end

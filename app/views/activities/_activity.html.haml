@@ -1,4 +1,13 @@
 %tr.spot_row
   %td= activity.title
-  %td Spotcheck
-  %td=
+  %td
+    - activity.spotchecks.each do |spotcheck|
+      %li= link_to spotcheck.title, spotcheck
+  %td= assignees_list(activity)
+
+  %td= 100
+  %td= 100
+  %td.delete_column= link_to '', '#', {method: :delete,
+                                                  data: spot_delete_confirm,
+                                                  class: 'btn btn-danger glyphicon glyphicon-trash delete_spot'}
+
