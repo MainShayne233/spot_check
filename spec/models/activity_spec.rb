@@ -86,6 +86,17 @@ RSpec.describe Activity, type: :model do
       expected_total = spots.map{|spot| spot.hours_worked}.reduce(:+)
       expect(activity.total_hours_worked).to eq expected_total
     end
+
+    it 'should return 0 for activities with no spots' do
+       activity = FactoryGirl.create(:activity)
+       expect(activity.total_hours_worked).to eq 0
+    end
+  end
+
+  describe 'hours left' do
+    it 'should return the hours left for the activity' do
+      
+    end
   end
 
 end
