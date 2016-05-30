@@ -21,7 +21,7 @@ spotchecks = ['Support SW', 'Build Ops', 'Gateway'].map{|title| checker.spotchec
 activities = ['DA59804 Dependency Checking Report',
               'Project Admin',
               'DA65432 Ingest of simultanious combustion',
-              'DA76544 Fix CSS for CUI show '].map {|title| checker.activities.create title: title}
+              'DA76544 Fix CSS for CUI show '].map {|title| checker.activities.create title: title, hours_left: rand(100) + 50}
 
 spotchecks.each do |spotcheck|
   assignees.each do |assignee|
@@ -29,7 +29,6 @@ spotchecks.each do |spotcheck|
       spotcheck.spots.create(assignee_id: assignee.id,
                              activity_id: activities[rand(3)].id,
                              hours_worked: rand(40),
-                             hours_left: rand(100),
                              work_accomplished: Faker::Lorem.paragraph)
     end
   end
@@ -40,14 +39,13 @@ other_spotcheck = assignees[rand(10)].spotchecks.create(title: 'Executive Admini
 other_activities = ['Analysis of DA52344',
                     'Documentation for analysis',
                     'Get to mars',
-                    'Rewrite CSS'].map {|title| checker.activities.create title: title}
+                    'Rewrite CSS'].map {|title| checker.activities.create title: title, hours_left: rand(100) + 50}
 
 other_activities.each do |activity|
   (assignees << checker). each do |assignee|
     other_spotcheck.spots.create(assignee_id: assignee.id,
                                  activity_id: activity.id,
                                  hours_worked: rand(40),
-                                 hours_left: rand(100),
                                  work_accomplished: Faker::Lorem.paragraph)
   end
 end

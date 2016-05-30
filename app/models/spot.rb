@@ -21,7 +21,7 @@ class Spot < ActiveRecord::Base
     row << self.assignee.formal_name
     row << self.activity.title
     row << self.hours_worked
-    row << self.hours_left
+    row << self.activity.hours_left
     row << self.work_accomplished
     row
   end

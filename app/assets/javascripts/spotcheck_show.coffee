@@ -19,9 +19,9 @@ ready = ->
     if hours_left == ''
       hours_left = 0
       $(this).val(0)
-    id = $(this).attr('id')
-    params = {spot: {hours_left: hours_left}}
-    update_spot(id, params)
+    id = $(this).data('activity')
+    params = {activity: {hours_left: hours_left}}
+    update_activity(id, params)
 
 
   # Set listener for work_accomplished inputs

@@ -1,6 +1,6 @@
 class ActivitiesController < ApplicationController
 
-  def show
+  def index
     @activities = current_user.activities.order(:title)
   end
 
@@ -16,10 +16,25 @@ class ActivitiesController < ApplicationController
     end
   end
 
+  def update
+    @activity = Activity.find(params[:id])
+    @activity.update(activity_params)
+    respond_to do |format|
+      format.json { render json: {}}
+    end
+  end
+
+  def destroy
+    @activity = Activity.find(params[:id])
+    if @activity.destroy
+      redirect_to activities_path
+    end
+  end
+
   private
 
   def activity_params
-    params.require(:activity).permit(:title)
+    params.require(:activity).permit(:title, :hours_left)
   end
 
 end

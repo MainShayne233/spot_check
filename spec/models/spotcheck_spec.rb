@@ -65,4 +65,20 @@ RSpec.describe Spotcheck, type: :model do
     end
   end
 
+  describe 'generate_spreadsheet' do
+    it 'create and return the path of a spotcheck spreadsheet' do
+      spotcheck = FactoryGirl.create(:spotcheck)
+      spot = FactoryGirl.create(:spot, spotcheck: spotcheck)
+      spreadsheet = Spreadsheet.open spotcheck.generate_spreadsheet
+      row = spreadsheet.worksheet(0).row(0).to_a
+      expect(row).to eq ["Assignee:", "Activity:", "Hours Worked:",
+                         "Hours Left:", "Work Accomplished:"]
+      row = spreadsheet.worksheet(0).row(1).to_a
+      expect(row).to eq [spot.assignee.formal_name, spot.activity.title,
+                         spot.hours_worked, spot.activity.hours_left,
+                         spot.work_accomplished]
+    end
+
+  end
+
 end

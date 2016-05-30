@@ -24,10 +24,9 @@ RSpec.describe Spot, type: :model do
       expect(spot.save).to be
     end
 
-    it 'should have a default value of 0 for hours_worked and hours_left' do
+    it 'should have a default value of 0 for hours_worked' do
       spot = FactoryGirl.create(:spot)
       expect(spot.hours_worked).to eq 0
-      expect(spot.hours_left).to eq 0
     end
 
   end
@@ -56,14 +55,22 @@ RSpec.describe Spot, type: :model do
     end
   end
 
-
-
   describe 'assigner' do
     it "should return the name of the spot's assigner" do
       assigner = FactoryGirl.create(:user, first_name: 'simon', last_name: 'nomis')
       spotcheck = FactoryGirl.create(:spotcheck, checker: assigner)
       spot = FactoryGirl.create(:spot, spotcheck: spotcheck)
       expect(spot.assigner).to eq assigner.name
+    end
+  end
+
+  describe 'spreadsheet_row' do
+    it 'should return an array for a spot row' do
+      spot = FactoryGirl.create(:spot)
+      expected_row = [spot.assignee.formal_name, spot.activity.title,
+                      spot.hours_worked, spot.activity.hours_left,
+                      spot.work_accomplished]
+      expect(spot.spreadsheet_row).to eq expected_row
     end
   end
 

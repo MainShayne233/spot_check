@@ -11,12 +11,12 @@
       .center.center-text= spot.hours_worked
   %td.hours_left_column
     - if current_user.is_assigner_of(spot)
-      %input.form-control.hours_left.num-input.select{value: "#{spot.hours_left}",
+      %input.form-control.hours_left.num-input.select{value: "#{spot.activity.hours_left}",
                                                               maxlength: 5,
                                                               type: 'text',
-                                                              id: spot.id}
+                                                              data: {activity: spot.activity.id}},
     - else
-      .center.center-text= spot.hours_left
+      .center.center-text= spot.activity.hours_left
   %td.work_accomplished_column
     - if current_user.is_affiliated_with(spot)
       %textarea.form-control.work_accomplished{id: spot.id, rows: 3}
