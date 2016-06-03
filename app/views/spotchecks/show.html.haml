@@ -30,8 +30,8 @@
           - if current_user.is_checker_of(@spotcheck)
             %th.delete_column Delete:
       %tbody
-      - assignee.spots_from(@spotcheck).each do |spot|
-        = render spot, assignee: assignee
+        - assignee.spots_from(@spotcheck).each do |spot|
+          = render spot, assignee: assignee
 
 
   - if @spotcheck.has_no_spots?
