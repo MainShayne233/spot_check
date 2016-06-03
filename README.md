@@ -14,4 +14,5 @@ Requires Ruby and either rbenv or RVM
 5. Visit localhost:3000 in your browser of choice
 6. Enjoy monitoring the work of your team :).
 
-TODO: Interface
+TODO:
+Finish making spots sortable: http://benw.me/posts/sortable-bootstrap-tables/

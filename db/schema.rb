@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160603181039) do
+ActiveRecord::Schema.define(version: 20160603201342) do
 
   create_table "activities", force: :cascade do |t|
     t.datetime "created_at",             null: false
@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 20160603181039) do
     t.integer  "assignee_id"
     t.integer  "hours_worked",      default: 0
     t.text     "work_accomplished"
-    t.integer  "sort_index"
+    t.integer  "row_order"
   end
 
   create_table "users", force: :cascade do |t|

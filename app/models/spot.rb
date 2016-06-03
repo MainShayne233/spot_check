@@ -1,5 +1,8 @@
 class Spot < ActiveRecord::Base
 
+  include RankedModel
+  ranks :row_order
+
   belongs_to :activity
   belongs_to :spotcheck
   belongs_to :assignee, class_name: 'User'
@@ -16,6 +19,7 @@ class Spot < ActiveRecord::Base
     self.spotcheck.checker.name
   end
 
+
   def spreadsheet_row
     row = []
     row << self.assignee.formal_name
@@ -25,5 +29,10 @@ class Spot < ActiveRecord::Base
     row << self.work_accomplished
     row
   end
+
+
+  private
+
+
 
 end

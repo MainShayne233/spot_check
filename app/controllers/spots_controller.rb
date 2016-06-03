@@ -23,6 +23,14 @@ class SpotsController < ApplicationController
     redirect_to @spotcheck
   end
 
+  def update_row_order
+    @spot = Spot.find(spot_params[:id])
+    @spot.row_order = spot_params[:row_order]
+    @spot.save
+
+    render nothing: true
+  end
+
 
   private
 
@@ -32,7 +40,8 @@ class SpotsController < ApplicationController
                                  :spotcheck_id,
                                  :hours_worked,
                                  :hours_left,
-                                 :work_accomplished)
+                                 :work_accomplished,
+                                 :row_order)
   end
 
 end
