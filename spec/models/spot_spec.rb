@@ -74,5 +74,19 @@ RSpec.describe Spot, type: :model do
     end
   end
 
+  describe 'reorder' do
+    it 'should reposition the spot, and its affiliated spots accordingly' do
+      spotcheck = FactoryGirl.create(:spotcheck)
+      assignee = FactoryGirl.create(:assignee)
+      spots = (0..2).map{FactoryGirl.create(:spot, assignee: assignee, spotcheck: spotcheck)}
+      Spot.find(spots[0].id).reorder(2)
+      row_ordered_spots = Spot.where(spotcheck: spotcheck, assignee: assignee).order(:row_order)
+      expect(row_ordered_spots).to eq [spots[1], spots[2], spots[0]]
+      Spot.find(spots[2].id).reorder(0)
+      row_ordered_spots = Spot.where(spotcheck: spotcheck, assignee: assignee).order(:row_order)
+      expect(row_ordered_spots).to eq [spots[2], spots[1], spots[0]]
+    end
+  end
+
 
 end
