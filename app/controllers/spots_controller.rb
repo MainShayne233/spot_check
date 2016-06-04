@@ -26,8 +26,6 @@ class SpotsController < ApplicationController
   def update_row_order
     @spot = Spot.find(spot_params[:id])
     @spot.reorder(spot_params[:row_order_position].to_i)
-    @spot.save
-
     render nothing: true
   end
 
