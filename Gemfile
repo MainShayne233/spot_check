@@ -12,6 +12,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'will_paginate'
 gem 'spreadsheet'
 gem 'ranked-model'
+gem 'jquery-ui-rails'
 group :development do
   gem 'web-console', '~> 2.0'
   gem 'spring'

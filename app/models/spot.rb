@@ -1,8 +1,5 @@
 class Spot < ActiveRecord::Base
 
-  include RankedModel
-  ranks :row_order
-
   belongs_to :activity
   belongs_to :spotcheck
   belongs_to :assignee, class_name: 'User'
@@ -10,6 +7,8 @@ class Spot < ActiveRecord::Base
   validates :activity, presence: true, uniqueness: {scope: [:assignee, :spotcheck]}
   validates :spotcheck, presence: true
   validates :assignee, presence: true
+
+  before_create :row_order_set
 
   def title
     self.activity.title
@@ -19,6 +18,14 @@ class Spot < ActiveRecord::Base
     self.spotcheck.checker.name
   end
 
+  def reorder(position)
+    if self.row_order > position
+      affiliated_spots.order(:row_order).to_a[position..(self.row_order-1)].each {|spot| spot.update row_order: spot.row_order + 1}
+    elsif self.row_order < position
+      affiliated_spots.order(:row_order).to_a[(self.row_order+1)..position].each {|spot| spot.update row_order: spot.row_order - 1}
+    end
+    self.row_order = position
+  end
 
   def spreadsheet_row
     row = []
@@ -30,9 +37,12 @@ class Spot < ActiveRecord::Base
     row
   end
 
+  def row_order_set
+    self.row_order = self.affiliated_spots.count
+  end
 
-  private
-
-
+  def affiliated_spots
+    Spot.where(spotcheck_id: self.spotcheck_id).where(assignee_id: self.assignee_id)
+  end
 
 end

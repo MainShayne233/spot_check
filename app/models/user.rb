@@ -35,7 +35,7 @@ class User < ActiveRecord::Base
   end
 
   def spots_from(spotcheck)
-    self.spots.where(spotcheck_id: spotcheck.id)
+    self.spots.where(spotcheck_id: spotcheck.id).order(:row_order)
   end
 
   def affiliated_spotchecks

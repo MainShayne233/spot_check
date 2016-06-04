@@ -9,8 +9,10 @@ Rails.application.routes.draw do
   resources :spotchecks
 
   get 'spotchecks/:id/download' => 'spotchecks#download', as: 'download_spotcheck'
+
   resources :spots do
     post :update_row_order, on: :collection
   end
+
   resources :activities
 end

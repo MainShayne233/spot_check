@@ -25,7 +25,7 @@ class SpotsController < ApplicationController
 
   def update_row_order
     @spot = Spot.find(spot_params[:id])
-    @spot.row_order = spot_params[:row_order]
+    @spot.reorder(spot_params[:row_order_position].to_i)
     @spot.save
 
     render nothing: true
@@ -35,13 +35,14 @@ class SpotsController < ApplicationController
   private
 
   def spot_params
-    params.require(:spot).permit(:assignee_id,
+    params.require(:spot).permit(:id,
+                                 :assignee_id,
                                  :activity_id,
                                  :spotcheck_id,
                                  :hours_worked,
                                  :hours_left,
                                  :work_accomplished,
-                                 :row_order)
+                                 :row_order_position)
   end
 
 end

@@ -20,7 +20,7 @@
       .col-md-4{id: "total_hours_#{assignee.id}"}
         Total Hours:
         = assignee.total_hours(@spotcheck)
-    %table.table.table-bordered.table-striped.spot_table
+    %table.table.table-bordered.table-striped.spot_table{class: sortable?(@spotcheck, assignee)}
       %thead
         %tr
           %th Activity:
