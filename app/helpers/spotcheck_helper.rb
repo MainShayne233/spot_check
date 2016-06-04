@@ -5,8 +5,9 @@ module SpotcheckHelper
   end
 
   def sortable?(spotcheck, assignee)
-    return 'sortable' if [spotcheck.checker, assignee].include? current_user
-    ''
+    return '' unless [spotcheck.checker, assignee].include? current_user
+    return '' unless spotcheck.spots.where(assignee_id: assignee.id).count > 1
+    'sortable'
   end
 
 end
