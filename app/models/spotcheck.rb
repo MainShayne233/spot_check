@@ -19,6 +19,12 @@ class Spotcheck < ActiveRecord::Base
     self.spots.blank?
   end
 
+  def sortable?(assignee, current_user)
+    return '' unless [self.checker, assignee].include? current_user
+    return '' unless self.spots.where(assignee_id: assignee.id).count > 1
+    'sortable'
+  end
+
 
   def generate_spreadsheet
     titles_row = ['Assignee:', 'Activity:', 'Hours Worked:', 'Hours Left:', 'Work Accomplished:']
