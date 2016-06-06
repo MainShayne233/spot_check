@@ -78,7 +78,28 @@ RSpec.describe Spotcheck, type: :model do
                          spot.hours_worked, spot.activity.hours_left,
                          spot.work_accomplished]
     end
+  end
 
+  describe 'sortability' do
+    it "should only return 'sortable' if the current_user is the checker" do
+      checker = FactoryGirl.create(:user)
+      assignee = FactoryGirl.create(:user)
+      spotcheck = FactoryGirl.create(:spotcheck)
+      3.times {FactoryGirl.create(:spot, spotcheck: spotcheck, assignee: assignee)}
+      expect(spotcheck.sortability(assignee, checker)).to eq ''
+      spotcheck.checker= checker
+      expect(spotcheck.sortability(assignee, checker)).to eq 'sortable'
+    end
+
+    it "should only return 'sortable' if the spot has at least one neighboring spot" do
+      checker = FactoryGirl.create(:user)
+      assignee = FactoryGirl.create(:user)
+      spotcheck = FactoryGirl.create(:spotcheck, checker: checker)
+      FactoryGirl.create(:spot, spotcheck: spotcheck, assignee: assignee)
+      expect(spotcheck.sortability(assignee, checker)).to eq ''
+      FactoryGirl.create(:spot, spotcheck: spotcheck, assignee: assignee)
+      expect(spotcheck.sortability(assignee, checker)).to eq 'sortable'
+    end
   end
 
 end

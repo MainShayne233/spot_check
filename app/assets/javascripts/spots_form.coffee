@@ -40,8 +40,8 @@ ready = ->
   $('#new_spot').on 'keypress', (e) ->
     if e.keyCode == 13
       return false
-      
-      
+
+
   # Clears new spot form when closed
   $('#new_spot_modal').on 'hidden.bs.modal', ->
     $("select[name='spot[assignee_id]'").val('')
@@ -89,7 +89,7 @@ save_new_spot = ->
       unless $('.errors#spot').html() == error_msg
         $('.errors#spot').html(error_div(error_msg))
   })
-    
+
 
 # Handles toggle the new activity form back to the select dropdown
 

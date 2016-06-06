@@ -19,7 +19,6 @@ class Spot < ActiveRecord::Base
   end
 
   def reorder(position)
-    # byebug
     if self.row_order > position
       affiliated_spots.order(:row_order).to_a[position..(self.row_order-1)].each {|spot| spot.update row_order: spot.row_order + 1}
     elsif self.row_order < position
