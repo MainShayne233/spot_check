@@ -11,6 +11,8 @@
     = link_to 'Create New Spot', 'javascript: void(0)', class: 'btn btn-default pull-right', id: 'create_new_spot'
   .box
     = link_to 'Download', download_spotcheck_path, class: 'btn btn-default inline'
+    = link_to 'Show My Spots', 'javascript: void(0)', class: "my btn btn-default #{'active' unless current_user.preferences.show_all_spots?}"
+    = link_to 'Show All Spots', 'javascript: void(0)', class: "all btn btn-default #{'active' if current_user.preferences.show_all_spots?}"
 
 .container
   - @spotcheck.assignees.order(:last_name).each do |assignee|

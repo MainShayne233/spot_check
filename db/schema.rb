@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160603201342) do
+ActiveRecord::Schema.define(version: 20160608024100) do
 
   create_table "activities", force: :cascade do |t|
     t.datetime "created_at",             null: false
@@ -19,6 +19,13 @@ ActiveRecord::Schema.define(version: 20160603201342) do
     t.string   "title"
     t.integer  "creator_id"
     t.integer  "hours_left", default: 0
+  end
+
+  create_table "preferences", force: :cascade do |t|
+    t.integer  "user_id"
+    t.boolean  "show_all_spots", default: true
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
   end
 
   create_table "spotchecks", force: :cascade do |t|

@@ -160,5 +160,12 @@ describe User do
     end
   end
 
+  describe 'create_preferences' do
+    it 'should assign a preferences record to a user when a user is created' do
+      user = FactoryGirl.create(:user)
+      expect(user.preferences).to be
+    end
+  end
+
 
 end
