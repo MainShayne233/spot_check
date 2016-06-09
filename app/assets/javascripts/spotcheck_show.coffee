@@ -41,6 +41,34 @@ ready = ->
     unless key_is_num(e)
       return false
 
+  # Initial setting of the visible spots and toggle buttons according to the user's preference
+  show_spots_init()
+
+  $('#show_all_spots').click ->
+    unless $(@).attr('class').includes('active')
+      $(@).addClass('active')
+      $(@).blur()
+      $('#show_my_spots').removeClass('active')
+      $('.not_affiliated_spot').each ->
+        $(@).show()
+      update_preferences(preferences: {show_all_spots: true})
+    else
+      return false
+
+
+
+  $('#show_my_spots').click ->
+    unless $(@).attr('class').includes('active')
+      $(@).addClass('active')
+      $(@).blur()
+      $('#show_all_spots').removeClass('active')
+      $('.not_affiliated_spot').each ->
+        $(@).hide()
+      update_preferences(preferences: {show_all_spots: false})
+    else
+      return false
+
+      
   set_activity_title_width()
 
 # Sets Activity column width based on longest activity title

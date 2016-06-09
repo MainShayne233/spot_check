@@ -10,6 +10,10 @@ Rails.application.routes.draw do
 
   get 'spotchecks/:id/download' => 'spotchecks#download', as: 'download_spotcheck'
 
+  get 'preferences/get' => 'preferences#get', as: 'get_preferences'
+
+  post 'preferences/update' => 'preferences#update', as: 'update_preference'
+
   resources :spots do
     post :update_row_order, on: :collection
   end

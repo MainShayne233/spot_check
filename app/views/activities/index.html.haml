@@ -9,6 +9,6 @@
         %th Hours worked:
         %th Hours left:
         %th.delete_column Delete:
-    - @activities.each do |activity|
-      %tbody
-      = render activity
+    %tbody
+      - @activities.each do |activity|
+        = render activity

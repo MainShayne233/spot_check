@@ -4,4 +4,5 @@ module SpotcheckHelper
     {confirm: 'Are you sure you want to delete this spotcheck?'}
   end
 
+
 end

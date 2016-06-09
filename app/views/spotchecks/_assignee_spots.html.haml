@@ -1,0 +1,17 @@
+.container.row{class: "#{[assignee, @spotcheck.checker].include?(current_user) ? '' : 'not_affiliated_spot'}"}
+  .col-md-4
+    %h4{style: 'margin-left: -15px;'}= assignee.formal_name
+  .col-md-4{id: "total_hours_#{assignee.id}"}
+    %h4 Total Hours: #{assignee.total_hours(@spotcheck)}
+  %table.table.table-bordered.table-striped.spot_table{class: @spotcheck.sortability(assignee, current_user)}
+    %thead
+      %tr
+        %th Activity:
+        %th Hours Worked:
+        %th Hours Left:
+        %th Work Accomplished:
+        - if current_user.is_checker_of(@spotcheck)
+          %th.delete_column Delete:
+    %tbody
+      - assignee.spots_from(@spotcheck).each do |spot|
+        = render spot, assignee: assignee

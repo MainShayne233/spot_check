@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   end
 
   def activity_select_list(creator_id)
-    options = Activity.where(creator_id: creator_id).order(:title)
+    options = Activity.where(creator_id: creator_id).order(:title).to_a
     options.map!{|activity| [activity.title, activity.id]}
     options.unshift ['', -1]
     options.unshift ['Create New', 0]

@@ -1,43 +1,31 @@
 .container
-  - if current_user.is_checker_of(@spotcheck)
-    = link_to 'Delete Spotcheck', @spotcheck, {method: :delete,
-                                               class: 'btn btn-danger pull-right',
-                                               data: spotcheck_delete_confirm}
+
 
   %h1.inline= @spotcheck.title
 
+  = link_to 'Download', download_spotcheck_path, class: 'btn btn-default'
+
 
   - if current_user.is_checker_of(@spotcheck)
-    = link_to 'Create New Spot', 'javascript: void(0)', class: 'btn btn-default pull-right', id: 'create_new_spot'
-  .box
-    = link_to 'Download', download_spotcheck_path, class: 'btn btn-default inline'
-    = link_to 'Show My Spots', 'javascript: void(0)', class: "my btn btn-default #{'active' unless current_user.preferences.show_all_spots?}"
-    = link_to 'Show All Spots', 'javascript: void(0)', class: "all btn btn-default #{'active' if current_user.preferences.show_all_spots?}"
+    .pull-right
+      = link_to ' Create New Spot', 'javascript: void(0)', class: 'btn btn-default', id: 'create_new_spot'
+      = link_to 'Delete Spotcheck', @spotcheck, {method: :delete,
+                                               class: 'btn btn-danger',
+                                               data: spotcheck_delete_confirm}
 
-.container
+  - else
+    .pull-right
+      = link_to 'Show My Spots', 'javascript: void(0)', class: 'btn btn-default', id: 'show_my_spots'
+      = link_to 'Show All Spots', 'javascript: void(0)', class: 'btn btn-default', id: 'show_all_spots'
+
+%br
+.container#spotcheck_spots
   - @spotcheck.assignees.order(:last_name).each do |assignee|
-    .row
-      .col-md-4
-        %h4= assignee.formal_name
-      .col-md-4{id: "total_hours_#{assignee.id}"}
-        Total Hours:
-        = assignee.total_hours(@spotcheck)
-    %table.table.table-bordered.table-striped.spot_table{class: @spotcheck.sortability(assignee, current_user)}
-      %thead
-        %tr
-          %th Activity:
-          %th Hours Worked:
-          %th Hours Left:
-          %th Work Accomplished:
-          - if current_user.is_checker_of(@spotcheck)
-            %th.delete_column Delete:
-      %tbody
-        - assignee.spots_from(@spotcheck).each do |spot|
-          = render spot, assignee: assignee
+    = render partial: 'assignee_spots', locals: {assignee: assignee}
 
 
-  - if @spotcheck.has_no_spots?
-    %h4 This spotcheck currently has no spots.
+    - if @spotcheck.has_no_spots?
+      %h4 This spotcheck currently has no spots.
 
 
 = render 'spots/form'
