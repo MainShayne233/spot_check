@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.3.0'
+ruby '2.3.1'
 gem 'rails', '4.2.4'
 gem 'sqlite3'
 gem 'sass-rails', '~> 5.0'
@@ -42,8 +42,10 @@ group :development do
   gem 'capistrano-bundler', '~> 1.1.2'
   gem 'capistrano-rails', '~> 1.1.1'
 
+  gem 'capistrano-passenger'
+
 # Add this if you're using rbenv
-  gem 'capistrano-rbenv', github: 'capistrano/rbenv'
+  gem 'capistrano-rbenv'
 end
 group :development, :test do
   gem 'factory_girl_rails'
