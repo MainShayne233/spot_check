@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 ruby '2.3.0'
 gem 'rails', '4.2.4'
-gem 'sqlite3'
 gem 'sass-rails', '~> 5.0'
 gem 'therubyracer'
 gem 'uglifier', '>= 1.3.0'
@@ -16,6 +15,8 @@ gem 'jquery-ui-rails'
 group :development do
   gem 'web-console', '~> 2.0'
   gem 'spring'
+  gem 'sqlite3'
+
 end
 gem 'bootstrap-sass'
 gem 'devise'
@@ -42,6 +43,7 @@ group :development, :test do
 end
 group :production do
   gem 'thin'
+  gem 'pg'
 end
 group :test do
   gem 'capybara'
