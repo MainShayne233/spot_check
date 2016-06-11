@@ -1,8 +1,11 @@
 update_spot = (id, params, total_elem = null) ->
+  arg_params = clone(params)
+  if params.spot.hours_worked == ''
+    arg_params.spot.hours_worked = 0
   $.ajax({
     type: 'PATCH',
     url: '/spots/' + id,
-    data: params,
+    data: arg_params,
     dataType: 'json',
     success: (data) ->
       if total_elem
@@ -10,14 +13,17 @@ update_spot = (id, params, total_elem = null) ->
   })
 
 update_activity = (id, params) ->
+  arg_params = clone(params)
+  if params.activity.hours_left == ''
+    arg_params.activity.hours_left = 0
   $.ajax({
     type: 'PATCH',
     url: '/activities/' + id,
-    data: params,
+    data: arg_params,
     dataType: 'json',
     success: ->
-      $('input[data-activity=' + id + ']').each (i, input) ->
-        $(input).val(params.activity.hours_left)
+      $('input[data-activity=' + id + ']').each ->
+        $(@).val(params.activity.hours_left)
   })
 
 

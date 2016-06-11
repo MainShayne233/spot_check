@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160608024100) do
+ActiveRecord::Schema.define(version: 20160611053211) do
 
   create_table "activities", force: :cascade do |t|
     t.datetime "created_at",             null: false
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20160608024100) do
     t.string   "title"
     t.integer  "creator_id"
     t.integer  "hours_left", default: 0
+    t.integer  "row_order"
   end
 
   create_table "preferences", force: :cascade do |t|

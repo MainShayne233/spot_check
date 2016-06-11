@@ -6,6 +6,9 @@ class Activity < ActiveRecord::Base
   has_many :spots, dependent: :destroy
   belongs_to :creator, class_name: 'User'
 
+  before_create :row_order_set
+
+
   def alphabetical_index(creator)
     Activity.where(creator_id: creator.id).order(:title).pluck(:id).to_a.index(self.id)
   end
@@ -23,6 +26,18 @@ class Activity < ActiveRecord::Base
     total ||= 0
   end
 
+  def reorder(position)
+    if self.row_order > position
+      self.creator.activities.order(:row_order).to_a[position..(self.row_order-1)].each {|activity| activity.update row_order: activity.row_order + 1}
+    elsif self.row_order < position
+      self.creator.activities.order(:row_order).to_a[(self.row_order+1)..position].each {|activity| activity.update row_order: activity.row_order - 1}
+    end
+    self.update row_order: position
+  end
+
+  def row_order_set
+    self.row_order = self.creator.activities.count
+  end
 
 
 end

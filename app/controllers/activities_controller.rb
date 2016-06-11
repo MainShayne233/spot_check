@@ -1,7 +1,7 @@
 class ActivitiesController < ApplicationController
 
   def index
-    @activities = current_user.activities.order(:title)
+    @activities = current_user.activities.order(:row_order)
   end
 
   def create
@@ -31,10 +31,16 @@ class ActivitiesController < ApplicationController
     end
   end
 
+  def update_row_order
+    @activity = Activity.find(activity_params[:id])
+    @activity.reorder(activity_params[:row_order_position].to_i)
+    render nothing: true
+  end
+
   private
 
   def activity_params
-    params.require(:activity).permit(:title, :hours_left)
+    params.require(:activity).permit(:id, :title, :hours_left, :row_order_position)
   end
 
 end

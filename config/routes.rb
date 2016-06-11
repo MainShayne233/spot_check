@@ -18,5 +18,7 @@ Rails.application.routes.draw do
     post :update_row_order, on: :collection
   end
 
-  resources :activities
+  resources :activities do
+    post :update_row_order, on: :collection
+  end
 end

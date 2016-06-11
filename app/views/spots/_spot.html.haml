@@ -1,5 +1,6 @@
 %tr.spot_row.item
-  %td.activity_title= spot.title
+  %td.activity_title
+    %p.no_sort= spot.title
   %td.hours_worked_column
     - if current_user.is_affiliated_with(spot)
       %input.form-control.hours_worked.num-input.select{value: "#{spot.hours_worked}",
