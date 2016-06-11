@@ -13,11 +13,6 @@ gem 'will_paginate'
 gem 'spreadsheet'
 gem 'ranked-model'
 gem 'jquery-ui-rails'
-
-
-
-
-
 group :development do
   gem 'web-console', '~> 2.0'
   gem 'spring'
@@ -37,13 +32,6 @@ group :development do
   gem 'rb-fsevent', require: false
   gem 'rb-inotify', require: false
   gem 'spring-commands-rspec'
-
-  gem 'capistrano', '~> 3.1.0'
-  gem 'capistrano-bundler', '~> 1.1.2'
-  gem 'capistrano-rails', '~> 1.1.1'
-
-# Add this if you're using rbenv
-  gem 'capistrano-rbenv', github: 'capistrano/rbenv'
 end
 group :development, :test do
   gem 'factory_girl_rails'
