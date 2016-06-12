@@ -74,6 +74,8 @@ ready = ->
       
   set_activity_title_width()
 
+  set_spotcheck_title_width()
+
 # Sets Activity column width based on longest activity title
 set_activity_title_width = ->
   longest = 0
@@ -81,6 +83,15 @@ set_activity_title_width = ->
     length = $(activity).html().length
     longest = length if length > longest
   $('.activity_title').css('width', (longest * 0.6) + 'em')
+
+
+# Sets Activity column width based on longest activity title
+set_spotcheck_title_width = ->
+  longest = 0
+  $('.spotcheck_title').each (i, spotcheck) ->
+    length = $(spotcheck).text().length
+    longest = length if length > longest
+  $('.spotcheck_title').css('width', (longest * 0.5) + 'em')
 
 
 $(document).ready(ready)

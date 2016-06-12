@@ -1,11 +1,11 @@
 %tr.activity_row.item
   %td.activity_title= activity.title
-  %td
+  %td.spotcheck_column
     - activity.spotchecks.each do |spotcheck|
-      %p= link_to "- #{spotcheck.title}", spotcheck
+      %p.spotcheck_title= link_to "- #{spotcheck.title}", spotcheck
   %td= assignees_list(activity)
 
-  %td.center.center-text= activity.total_hours_worked
+  %td.hours_worked_column.center.center-text= activity.total_hours_worked
   %td.hours_left_column
     %input.form-control.hours_left.num-input.select{value: "#{activity.hours_left}",
                                                             maxlength: 5,
