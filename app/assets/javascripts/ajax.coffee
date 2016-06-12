@@ -9,7 +9,7 @@ update_spot = (id, params, total_elem = null) ->
     dataType: 'json',
     success: (data) ->
       if total_elem
-        total_elem.html('Total Hours: ' + data)
+        total_elem.html('<h4>Total Hours: ' + data + '</h4>')
   })
 
 update_activity = (id, params) ->
