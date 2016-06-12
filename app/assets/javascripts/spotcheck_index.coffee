@@ -1,5 +1,9 @@
 ready = ->
-  
+
+# Sets active css for spotchecks link
+  if $('body').attr('class').includes('spotchecks')
+    $('#spotchecks_link').addClass('active')
+
   # Sets listener for new spot modal link
 
   $('#create_new_spot').click ->
@@ -48,10 +52,6 @@ modal_focus = (target) ->
   setTimeout ->
     target.focus()
   , 200
-  
-
-
-
 
 $(document).ready(ready)
 $(document).on('page:load', ready)

@@ -1,7 +1,7 @@
 .navbar.navbar-inverse
   .container-fluid
     %ul.nav.navbar-nav
-      %li= link_to 'Spotchecks', root_path
-      %li= link_to 'Activities', activities_path
+      %li#spotchecks_link= link_to 'Spotchecks', root_path
+      %li#activities_link= link_to 'Activities', activities_path
       -if current_user
         %li= link_to 'Sign Out', destroy_user_session_path
