@@ -71,10 +71,11 @@ ready = ->
     else
       return false
 
-      
-  set_activity_title_width()
+  unless $('.activity.index').length == 0
+    set_activity_title_width()
 
-  set_spotcheck_title_width()
+  unless $('.spotcheck.show').length == 0
+    set_spotcheck_title_width()
 
 # Sets Activity column width based on longest activity title
 set_activity_title_width = ->

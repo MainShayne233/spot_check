@@ -33,6 +33,8 @@ ready = ->
 
 # Saves new spotcheck, or displays error if input is invalid
 
+  $('.spotcheck_title')
+
 spotcheck_submit = ->
   form = $('form#new_spotcheck')
   $.ajax({
