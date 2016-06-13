@@ -13,6 +13,4 @@ Feature: Edit Spots
     And I navigate to the spotcheck of that spot
     When I edit the "hours worked" of the spot
     Then the spot's "hours worked" should be persisted
-    When I edit the "work accomplished" of the spot
-    Then the spot's "work accomplished" should be persisted
     And I should not be able to edit the spot's "hours left"

@@ -1,9 +1,10 @@
+
 .container
 
 
   %h1.inline= @spotcheck.title
 
-  = link_to 'Download', download_spotcheck_path, class: 'btn btn-default'
+  = link_to 'Download', download_spotcheck_path, class: 'btn btn-default', id: 'spotcheck_download_btn'
 
 
   - if current_user.is_checker_of(@spotcheck)
